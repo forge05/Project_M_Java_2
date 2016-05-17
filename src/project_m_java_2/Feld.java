@@ -16,25 +16,35 @@ public class Feld extends JButton{
     int entfernung_zum_ziel;
     content inhalt;
     Feld[] nachbarn;
+    boolean schonGeruecktWorden = false;
     
     public Feld(content c, int distanz){
         entfernung_zum_ziel = distanz;
         inhalt = c;
     }
-    
-    public void setNachbarn(Feld ...felder){
+
+    public void setNachbar(Feld... felder) {
         nachbarn = felder;
     }
-    
-    
+
     public enum content {
-    RED,
-    GREEN,
-    YELLOW,
-    BLUE,
-    BLACK,
-    GOAL,
-    BLOCK;
+        RED(1),
+        GREEN(2),
+        YELLOW(3),
+        BLUE(4),
+        BLACK(5),
+        GOAL(6),
+        BLOCK(7);
+
+        private final int stelle;
+
+        content(int stelle) {
+            this.stelle = stelle;
+        }
+
+        public int getStelle() {
+            return this.stelle;
+        }
     }
 }
 

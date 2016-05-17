@@ -28,199 +28,255 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jlbl_spieler2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlbl_spieler1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlbl_spieler3" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlbl_spieler4" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="tf_spielername_red" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jcb_cpu_red" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="tf_spielername_green" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jcb_spu_green" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tf_spielername_yellow" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tf_spielername_blue" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jcb_cpu_blue" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jcb_cpu_yellow" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jlbl_anz_spieler" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="190" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jpnl_einstellungen" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jbtn_zurueck" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlbl_anz_spieler" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlbl_spieler1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tf_spielername_red" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcb_cpu_red" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlbl_spieler2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tf_spielername_green" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcb_spu_green" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlbl_spieler3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tf_spielername_yellow" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcb_cpu_yellow" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlbl_spieler4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tf_spielername_blue" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcb_cpu_blue" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-              <Component id="jbtn_zurueck" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <Component id="jpnl_einstellungen" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton1">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="bg_anz_spieler"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton2">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="bg_anz_spieler"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="3"/>
-        <Property name="actionCommand" type="java.lang.String" value="3"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="jRadioButton3">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="bg_anz_spieler"/>
-        </Property>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="4"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_anz_spieler">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Anzahl Spieler"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_spieler1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Spieler 1"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_spieler2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Spieler 2"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_spieler3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Spieler 3"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_spieler4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Spieler 4"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_spielername_red">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Red"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_spielername_green">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Green"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_spielername_yellow">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Yellow"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tf_spielername_blue">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Green"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="jcb_cpu_red">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="jcb_spu_green">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="jcb_cpu_yellow">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="jcb_cpu_blue">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="CPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jbtn_zurueck">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Zur&#xfc;ck zum Men&#xfc;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtn_zurueckActionPerformed"/>
-      </Events>
-    </Component>
+    <Container class="javax.swing.JPanel" name="jpnl_einstellungen">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jlbl_spieler2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlbl_spieler1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlbl_spieler3" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jlbl_spieler4" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="tf_spielername_red" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jcb_cpu_red" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="tf_spielername_green" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                  <Component id="jcb_spu_green" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="tf_spielername_yellow" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tf_spielername_blue" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jcb_cpu_blue" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jcb_cpu_yellow" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jlbl_anz_spieler" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jrb_anz_2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jrb_anz_3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jrb_anz_4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jbtn_starten" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jbtn_zurueck" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jrb_anz_2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jrb_anz_3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jrb_anz_4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlbl_anz_spieler" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jlbl_spieler1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_spielername_red" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcb_cpu_red" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jlbl_spieler2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_spielername_green" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcb_spu_green" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jlbl_spieler3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_spielername_yellow" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcb_cpu_yellow" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jlbl_spieler4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_spielername_blue" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcb_cpu_blue" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jbtn_starten" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="jbtn_zurueck" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JTextField" name="tf_spielername_blue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Blue"/>
+            <Property name="name" type="java.lang.String" value="tf_spielername_blue" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jrb_anz_3">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bg_anz_spieler"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_anz_3ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jcb_cpu_red">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CPU"/>
+            <Property name="name" type="java.lang.String" value="jcb_cpu_red" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jrb_anz_4">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bg_anz_spieler"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="4"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_anz_4ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jcb_spu_green">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CPU"/>
+            <Property name="name" type="java.lang.String" value="jcb_cpu_green" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlbl_anz_spieler">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Anzahl Spieler"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jcb_cpu_yellow">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CPU"/>
+            <Property name="name" type="java.lang.String" value="jcb_cpu_yellow" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlbl_spieler1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spieler 1"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jcb_cpu_blue">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CPU"/>
+            <Property name="name" type="java.lang.String" value="jcb_cpu_blue" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlbl_spieler2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spieler 2"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtn_zurueck">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Zur&#xfc;ck zum Men&#xfc;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtn_zurueckActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlbl_spieler3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spieler 3"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jlbl_spieler4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spieler 4"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_spielername_red">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Red"/>
+            <Property name="name" type="java.lang.String" value="tf_spielername_red" noResource="true"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_spielername_green">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Green"/>
+            <Property name="name" type="java.lang.String" value="tf_spielername_green" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_spielername_yellow">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Yellow"/>
+            <Property name="name" type="java.lang.String" value="tf_spielername_yellow" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="jrb_anz_2">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="bg_anz_spieler"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrb_anz_2ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbtn_starten">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Spiel starten"/>
+            <Property name="actionCommand" type="java.lang.String" value=""/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtn_startenActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

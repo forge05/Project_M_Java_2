@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  */
 public class Menue extends javax.swing.JFrame {
 
-    JFrame jfrm_einstellungen;
+    Einstellungen jfrm_einstellungen;
     /**
      * Creates new form Menue
      */
@@ -31,22 +31,15 @@ public class Menue extends javax.swing.JFrame {
     private void initComponents() {
 
         jbtn_neuesSpiel = new javax.swing.JButton();
-        jbtn_einstellungen = new javax.swing.JButton();
         jbtn_beenden = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
 
         jbtn_neuesSpiel.setLabel("Neues Spiel");
         jbtn_neuesSpiel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_neuesSpielActionPerformed(evt);
-            }
-        });
-
-        jbtn_einstellungen.setLabel("Einstellungen");
-        jbtn_einstellungen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtn_einstellungenActionPerformed(evt);
             }
         });
 
@@ -62,27 +55,23 @@ public class Menue extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(124, 124, 124)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jbtn_einstellungen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtn_beenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtn_neuesSpiel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtn_neuesSpiel)
-                .addGap(28, 28, 28)
-                .addComponent(jbtn_einstellungen)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtn_beenden)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jbtn_neuesSpiel.getAccessibleContext().setAccessibleName("jbtn_neuesSpiel");
-        jbtn_einstellungen.getAccessibleContext().setAccessibleName("jbtn_einstellungen");
         jbtn_beenden.getAccessibleContext().setAccessibleName("jbtn_beenden");
 
         pack();
@@ -91,14 +80,8 @@ public class Menue extends javax.swing.JFrame {
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        jfrm_einstellungen.dispose();
     }//GEN-LAST:event_jbtn_beendenActionPerformed
-
-    private void jbtn_einstellungenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_einstellungenActionPerformed
-        // TODO add your handling code here:
-        jfrm_einstellungen = new Einstellungen(this);
-        jfrm_einstellungen.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jbtn_einstellungenActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -134,10 +117,13 @@ public class Menue extends javax.swing.JFrame {
     
     private void jbtn_neuesSpielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_neuesSpielActionPerformed
         // TODO add your handling code here:
-        JFrame jfrm_spielfeld = new Spielfeld(this, jfrm_einstellungen);
-        jfrm_spielfeld.dispose();
-        jfrm_spielfeld.setVisible(true);
+        jfrm_einstellungen = new Einstellungen(this);
+        jfrm_einstellungen.setVisible(true);
         this.setVisible(false);
+        //JFrame jfrm_spielfeld = new Spielfeld(this, jfrm_einstellungen);
+        //jfrm_spielfeld.dispose();
+        //jfrm_spielfeld.setVisible(true);
+        //this.setVisible(false);
         
     }//GEN-LAST:event_jbtn_neuesSpielActionPerformed
 
@@ -145,7 +131,6 @@ public class Menue extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtn_beenden;
-    private javax.swing.JButton jbtn_einstellungen;
     private javax.swing.JButton jbtn_neuesSpiel;
     // End of variables declaration//GEN-END:variables
 }
