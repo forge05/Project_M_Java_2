@@ -42,6 +42,7 @@ public class Spielfeld extends javax.swing.JFrame {
     boolean cpu4 = false;
     boolean schongewuerfelt = false;
     boolean blockZuSetzen = false;
+    boolean someoneWon = false;
     Player spieler_red;
     Player spieler_green;
     Player spieler_yellow;
@@ -89,7 +90,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 }
             } else if (c.getClass() == JCheckBox.class) {
                 JCheckBox jcb = (JCheckBox) c;
-                if (jcb.getName() == "jcb_cpu_red") {
+                if (jcb.getName().equals("jcb_cpu_red")) {
                     if (jcb.isSelected()) {
                         cpu1 = true;
                     }
@@ -174,12 +175,16 @@ public class Spielfeld extends javax.swing.JFrame {
                 switch (aktuellesFeld.inhalt) {
                     case RED:
                         aktuellesFeld.setForeground(Color.RED);
+                        break;
                     case GREEN:
                         aktuellesFeld.setForeground(Color.GREEN);
+                        break;
                     case YELLOW:
                         aktuellesFeld.setForeground(Color.YELLOW);
+                        break;
                     case BLUE:
                         aktuellesFeld.setForeground(Color.BLUE);
+                        break;
                 }
             }
             if (aktuellesFeld.inhalt == Feld.content.GOAL) {
@@ -191,11 +196,13 @@ public class Spielfeld extends javax.swing.JFrame {
     private void nextPlayer() {
         if (it.hasNext()) {
             an_der_Reihe = (Player) it.next();
-            System.out.println("Spieler " + an_der_Reihe.spielerFarbe);
+            //System.out.println("Spieler " + an_der_Reihe.spielerFarbe + ". Sie sind an der Reihe");
+            jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte würfeln Sie.");
         } else {
             it = player.listIterator();
             an_der_Reihe = it.next();
-            System.out.println("Spieler " + an_der_Reihe.spielerFarbe);
+            //System.out.println("Spieler " + an_der_Reihe.spielerFarbe + ". Sie sind an der Reihe");
+            jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte würfeln Sie.");
         }
         jlbl_wuerfelzahl.setText("");                           //ist eigentlich bereits abgefangen, sieht aber für den Spieler besser aus
         schongewuerfelt = false;
@@ -302,6 +309,11 @@ public class Spielfeld extends javax.swing.JFrame {
                 break;
             case BLOCK:
                 blockZuSetzen = true;
+                jbtn_wuerfeln.setEnabled(false);
+                jbtn_aussetzen.setEnabled(false);
+                break;
+            case GOAL:
+                gewinnen();
                 break;
         }
 
@@ -323,6 +335,28 @@ public class Spielfeld extends javax.swing.JFrame {
                 }
             }
         }
+    }
+
+    private void blockSetzen(Feld wirdBlock) {
+        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
+        if (wirdBlock.entfernung_zum_ziel <= 36) {
+            if (wirdBlock.inhalt == Feld.content.BLACK) {
+                wirdBlock.inhalt = Feld.content.BLOCK;
+                wirdBlock.setBackground(Color.WHITE);
+                blockZuSetzen = false;
+                //jbtn_wuerfeln.setEnabled(true);
+                //jbtn_aussetzen.setEnabled(true);
+                nextPlayer();
+            }
+        }
+    }
+
+    private void gewinnen() {
+        //playerButtonsDisablen();
+        someoneWon = true;
+        jbtn_wuerfeln.setEnabled(false);
+        jbtn_aussetzen.setEnabled(false);
+        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Sie haben gewonnen!");
     }
 
     private void nachbarn() {
@@ -608,6 +642,7 @@ public class Spielfeld extends javax.swing.JFrame {
         jbtn_wuerfeln = new javax.swing.JButton();
         jbtn_beenden = new javax.swing.JButton();
         jlbl_wuerfelzahl = new javax.swing.JLabel();
+        jlbl_anDerReihe = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Project_M");
@@ -2226,31 +2261,36 @@ public class Spielfeld extends javax.swing.JFrame {
             }
         });
 
+        jlbl_anDerReihe.setName("jlbl_anDerReihe"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jbtn_aussetzen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtn_beenden)
-                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtn_aussetzen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtn_beenden)
+                        .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbtn_wuerfeln)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbl_wuerfelzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jlbl_wuerfelzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(179, 179, 179)
+                        .addComponent(jlbl_anDerReihe, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbl_anDerReihe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbtn_wuerfeln, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbl_wuerfelzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2283,28 +2323,34 @@ public class Spielfeld extends javax.swing.JFrame {
         schongewuerfelt = true;
         jbtn_aussetzen.setEnabled(true);
         jbtn_wuerfeln.setEnabled(false);
+        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
     }//GEN-LAST:event_jbtn_wuerfelnActionPerformed
 
     private void jbtn_ClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_ClickActionPerformed
         // TODO add your handling code here:
         Feld myfeld = (Feld) evt.getSource();
-        if (schongewuerfelt) {
-            //if(blocknichtgesetzt){
-            if (myfeld.getBackground() != Color.CYAN) {
-                propagiereZuruecksetzen();
+        if (!someoneWon) {
+            if (!blockZuSetzen) {
+                if (schongewuerfelt) {
+                    if (myfeld.getBackground() != Color.CYAN) {
+                        propagiereZuruecksetzen();
+                    }
+                    if (myfeld.getBackground() == Color.CYAN) {
+                        ruecken(myfeld, propagierender);
+                        if (!blockZuSetzen && !someoneWon) {
+                            nextPlayer();
+                        }
+                    } else if (myfeld.inhalt == an_der_Reihe.spielerFarbe) {
+                        propagierender = myfeld;
+                        propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
+                    }
+                }
+            } else {
+                blockSetzen(myfeld);
             }
-            if (myfeld.getBackground() == Color.CYAN) {
-                ruecken(myfeld, propagierender);
-                //if(blockgesetzt)
-                nextPlayer();
-            } else if (myfeld.inhalt == an_der_Reihe.spielerFarbe) {
-                propagierender = myfeld;
-                propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
-            }
-
-            //propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
         }
 
+        //propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
 
     }//GEN-LAST:event_jbtn_ClickActionPerformed
 
@@ -2454,6 +2500,7 @@ public class Spielfeld extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_aussetzen;
     private javax.swing.JButton jbtn_beenden;
     private javax.swing.JButton jbtn_wuerfeln;
+    private javax.swing.JLabel jlbl_anDerReihe;
     private javax.swing.JLabel jlbl_wuerfelzahl;
     private javax.swing.JPanel jpnl_alleFelder;
     // End of variables declaration//GEN-END:variables

@@ -80,7 +80,9 @@ public class Menue extends javax.swing.JFrame {
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        jfrm_einstellungen.dispose();
+        if(jfrm_einstellungen != null){
+            jfrm_einstellungen.dispose();
+        }
     }//GEN-LAST:event_jbtn_beendenActionPerformed
 
     public static void main(String args[]) {
