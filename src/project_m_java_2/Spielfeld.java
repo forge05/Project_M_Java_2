@@ -117,6 +117,9 @@ public class Spielfeld extends javax.swing.JFrame {
             //}
             //}
         }
+        
+        //Player anlegen und Startfelder ggf. enablen
+        
         if (cpu1) {
             spieler_red = new CPU(playerName1, Feld.content.RED);
         } else {
@@ -138,6 +141,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 spieler_yellow = new Spieler(playerName3, Feld.content.YELLOW);
             }
             player.add(spieler_yellow);
+            playerButtonsEnablen(spieler_yellow.spielerFarbe);
             if (spielerAnzahl >= 4) {
 
                 if (cpu4) {
@@ -146,6 +150,7 @@ public class Spielfeld extends javax.swing.JFrame {
                     spieler_blue = new Spieler(playerName4, Feld.content.BLUE);
                 }
                 player.add(spieler_blue);
+                playerButtonsEnablen(spieler_blue.spielerFarbe);
             }
         }
     }
@@ -170,20 +175,24 @@ public class Spielfeld extends javax.swing.JFrame {
                 aktuellesFeld.setText("BLOCK");
             }
             if (aktuellesFeld.inhalt.getStelle() <= spielerAnzahl && aktuellesFeld.inhalt != spielerContent) {
-                aktuellesFeld.setText("Gegner");
+                //aktuellesFeld.setText("Gegner");
 
                 switch (aktuellesFeld.inhalt) {
                     case RED:
-                        aktuellesFeld.setForeground(Color.RED);
+                        //aktuellesFeld.setForeground(Color.RED);
+                        aktuellesFeld.setText("Red");
                         break;
                     case GREEN:
-                        aktuellesFeld.setForeground(Color.GREEN);
+                        //aktuellesFeld.setForeground(Color.GREEN);
+                        aktuellesFeld.setText("Green");
                         break;
                     case YELLOW:
-                        aktuellesFeld.setForeground(Color.YELLOW);
+                        //aktuellesFeld.setForeground(Color.YELLOW);
+                        aktuellesFeld.setText("Yellow");
                         break;
                     case BLUE:
-                        aktuellesFeld.setForeground(Color.BLUE);
+                        //aktuellesFeld.setForeground(Color.BLUE);
+                        aktuellesFeld.setText("Blue");
                         break;
                 }
             }
@@ -224,11 +233,11 @@ public class Spielfeld extends javax.swing.JFrame {
         }
     }
 
-    private void playerButtonsEnablen() {
+    private void playerButtonsEnablen(Feld.content playerColor) {
         for (Object c : jpnl_alleFelder.getComponents()) {
             if (c.getClass() == Startfeld.class) {
                 Startfeld startfeld = (Startfeld) c;
-                if (startfeld.inhalt == an_der_Reihe.spielerFarbe && !startfeld.schonGeruecktWorden) {
+                if (startfeld.inhalt == playerColor){// && !startfeld.schonGeruecktWorden) {
                     startfeld.setEnabled(true);
                 }
             }
@@ -969,6 +978,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_yellow_1.setBackground(java.awt.Color.yellow);
         jbtn_40_yellow_1.setBorder(null);
+        jbtn_40_yellow_1.setEnabled(false);
         jbtn_40_yellow_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -985,6 +995,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_yellow_2.setBackground(java.awt.Color.yellow);
         jbtn_40_yellow_2.setBorder(null);
+        jbtn_40_yellow_2.setEnabled(false);
         jbtn_40_yellow_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1001,6 +1012,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_yellow_3.setBackground(java.awt.Color.yellow);
         jbtn_40_yellow_3.setBorder(null);
+        jbtn_40_yellow_3.setEnabled(false);
         jbtn_40_yellow_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1017,6 +1029,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_yellow_5.setBackground(java.awt.Color.yellow);
         jbtn_40_yellow_5.setBorder(null);
+        jbtn_40_yellow_5.setEnabled(false);
         jbtn_40_yellow_5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1033,6 +1046,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_yellow_4.setBackground(java.awt.Color.yellow);
         jbtn_40_yellow_4.setBorder(null);
+        jbtn_40_yellow_4.setEnabled(false);
         jbtn_40_yellow_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1129,6 +1143,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_blue_1.setBackground(new java.awt.Color(0, 0, 255));
         jbtn_40_blue_1.setBorder(null);
+        jbtn_40_blue_1.setEnabled(false);
         jbtn_40_blue_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1137,6 +1152,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_blue_2.setBackground(new java.awt.Color(0, 0, 255));
         jbtn_40_blue_2.setBorder(null);
+        jbtn_40_blue_2.setEnabled(false);
         jbtn_40_blue_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1145,6 +1161,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_blue_3.setBackground(new java.awt.Color(0, 0, 255));
         jbtn_40_blue_3.setBorder(null);
+        jbtn_40_blue_3.setEnabled(false);
         jbtn_40_blue_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1153,6 +1170,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_blue_5.setBackground(new java.awt.Color(0, 0, 255));
         jbtn_40_blue_5.setBorder(null);
+        jbtn_40_blue_5.setEnabled(false);
         jbtn_40_blue_5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
@@ -1161,6 +1179,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
         jbtn_40_blue_4.setBackground(new java.awt.Color(0, 0, 255));
         jbtn_40_blue_4.setBorder(null);
+        jbtn_40_blue_4.setEnabled(false);
         jbtn_40_blue_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_ClickActionPerformed(evt);
