@@ -317,6 +317,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 schlagen(ursprungscontent);
                 break;
             case BLOCK:
+                jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
                 blockZuSetzen = true;
                 jbtn_wuerfeln.setEnabled(false);
                 jbtn_aussetzen.setEnabled(false);
@@ -347,7 +348,6 @@ public class Spielfeld extends javax.swing.JFrame {
     }
 
     private void blockSetzen(Feld wirdBlock) {
-        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
         if (wirdBlock.entfernung_zum_ziel <= 36) {
             if (wirdBlock.inhalt == Feld.content.BLACK) {
                 wirdBlock.inhalt = Feld.content.BLOCK;
