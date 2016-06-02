@@ -16,7 +16,6 @@ public class Feld extends JButton{
     int entfernung_zum_ziel;
     content inhalt;
     Feld[] nachbarn;
-    boolean schonGeruecktWorden = false;
     
     public Feld(content c, int distanz){
         entfernung_zum_ziel = distanz;
@@ -25,8 +24,7 @@ public class Feld extends JButton{
 
     public void setNachbar(Feld... felder) {
         nachbarn = felder;
-    }
-
+    }   
     public enum content {
         RED(1),
         GREEN(2),
@@ -45,6 +43,11 @@ public class Feld extends JButton{
         public int getStelle() {
             return this.stelle;
         }
+    }
+    
+    public void setAttributes(Feld.content inhalt, int distanz){
+        this.inhalt = inhalt;
+        this.entfernung_zum_ziel = distanz;
     }
 }
 

@@ -11,7 +11,8 @@ package project_m_java_2;
  */
 public class CPU extends Player{
     
-    public CPU(String name, Feld.content inhalt){
+    public CPU(String name, Feld.content inhalt, Startfeld... startfelder){
+        super(startfelder);
         this.spielerName = name;
         this.spielerFarbe = inhalt;
     }

@@ -11,6 +11,7 @@ package project_m_java_2;
  */
 public class Startfeld extends Feld{
     public static final int entfernung = 40;
+    boolean schonGeruecktWorden = false;
     public Startfeld(content c) {
         super(c, entfernung);
     }

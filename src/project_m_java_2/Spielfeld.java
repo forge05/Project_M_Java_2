@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRootPane;
@@ -29,25 +30,21 @@ public class Spielfeld extends javax.swing.JFrame {
     Menue jfrm_menu;
     Einstellungen jfrm_einstellungen;
     int wurfzahl;
-    int spielerAnzahl;
-    CopyOnWriteArrayList<Player> player;                            //ArrayList wirft ConcurrentModificationError. Um nur einem Thread Zugriff zu gestatten benutzen wir CopyOnWriteArrayList
-    ListIterator<Player> it;
+    int playerAnzahl;
+    CopyOnWriteArrayList<Player> allePlayer;                            //ArrayList wirft ConcurrentModificationError. Um nur einem Thread Zugriff zu gestatten benutzen wir CopyOnWriteArrayList
+    ListIterator<Player> iter;
     String playerName1;
     String playerName2;
     String playerName3;
     String playerName4;
-    boolean cpu1 = false;
-    boolean cpu2 = false;
-    boolean cpu3 = false;
-    boolean cpu4 = false;
-    boolean schongewuerfelt = false;
+    boolean schonGewuerfelt = false;
     boolean blockZuSetzen = false;
     boolean someoneWon = false;
-    Player spieler_red;
-    Player spieler_green;
-    Player spieler_yellow;
-    Player spieler_blue;
-    Player an_der_Reihe;
+    Player player1;
+    Player player2;
+    Player player3;
+    Player player4;
+    Player yourTurn;
     Feld propagierender;
 
     /**
@@ -56,26 +53,27 @@ public class Spielfeld extends javax.swing.JFrame {
     public Spielfeld(Menue Menu, Einstellungen einstellungen) {
         jfrm_menu = Menu;
         jfrm_einstellungen = einstellungen;                      //radioButtons einfügen um Auswahl zu treffen, wer anfangen darf/soll
-        player = new CopyOnWriteArrayList();
-        it = player.listIterator(0);                            //int index beginnt ab position index
+        allePlayer = new CopyOnWriteArrayList();
+        iter = allePlayer.listIterator(0);                            //int index beginnt ab position index
         initComponents();
-        nachbarn();
-        initPlayers();
-        //an_der_Reihe = spieler_red; 
+        erstellePlayer();
+        setNeighbors();
         nextPlayer();
     }
 
-    private void initPlayers() {
+    private void erstellePlayer() {
+        boolean cpu1 = false;
+        boolean cpu2 = false;
+        boolean cpu3 = false;
+        boolean cpu4 = false;
         for (Object c : jfrm_einstellungen.jpnl_einstellungen.getComponents()) {
             if (c.getClass() == JRadioButton.class) {
                 JRadioButton jrb = (JRadioButton) c;
                 if (jrb.isSelected()) {
-                    spielerAnzahl = Integer.parseInt(jrb.getText());
+                    playerAnzahl = Integer.parseInt(jrb.getText());
                 }
             } else if (c.getClass() == JTextField.class) {
                 JTextField jtf = (JTextField) c;
-                //String abc = new String();
-                //abc += jtf.getName();
                 if (jtf.getName().equals("tf_spielername_red")) {
                     playerName1 = jtf.getText();
                 }
@@ -111,47 +109,91 @@ public class Spielfeld extends javax.swing.JFrame {
                     }
                 }
             }
-
-            // }
-            // }
-            //}
-            //}
         }
-        
+
         //Player anlegen und Startfelder ggf. enablen
-        
         if (cpu1) {
-            spieler_red = new CPU(playerName1, Feld.content.RED);
+            player1 = new CPU(playerName1, Feld.content.RED, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);
         } else {
-            spieler_red = new Spieler(playerName1, Feld.content.RED);
+            player1 = new Spieler(playerName1, Feld.content.RED, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);
         }
-        player.add(spieler_red);
-
+        allePlayer.add(player1);
+        jlbl_playerName1.setText(playerName1);
         if (cpu2) {
-            spieler_green = new CPU(playerName2, Feld.content.GREEN);
+            player2 = new CPU(playerName2, Feld.content.GREEN, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);
         } else {
-            spieler_green = new Spieler(playerName2, Feld.content.GREEN);
+            player2 = new Spieler(playerName2, Feld.content.GREEN, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);
         }
-        player.add(spieler_green);
-        if (spielerAnzahl >= 3) {
-
+        allePlayer.add(player2);
+        jlbl_playerName2.setText(playerName2);
+        if (playerAnzahl >= 3) {
             if (cpu3) {
-                spieler_yellow = new CPU(playerName3, Feld.content.YELLOW);
+                player3 = new CPU(playerName3, Feld.content.YELLOW, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);
             } else {
-                spieler_yellow = new Spieler(playerName3, Feld.content.YELLOW);
+                player3 = new Spieler(playerName3, Feld.content.YELLOW, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);
             }
-            player.add(spieler_yellow);
-            playerButtonsEnablen(spieler_yellow.spielerFarbe);
-            if (spielerAnzahl >= 4) {
-
+            allePlayer.add(player3);
+            jlbl_playerName3.setText(playerName3);
+            //playerButtonsEnablen(player3.spielerFarbe);
+            if (playerAnzahl >= 4) {
                 if (cpu4) {
-                    spieler_blue = new CPU(playerName4, Feld.content.BLUE);
+                    player4 = new CPU(playerName4, Feld.content.BLUE, jbtn_40_blue_1, jbtn_40_blue_2, jbtn_40_blue_3, jbtn_40_blue_4, jbtn_40_blue_5);
                 } else {
-                    spieler_blue = new Spieler(playerName4, Feld.content.BLUE);
+                    player4 = new Spieler(playerName4, Feld.content.BLUE, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);
                 }
-                player.add(spieler_blue);
-                playerButtonsEnablen(spieler_blue.spielerFarbe);
+                allePlayer.add(player4);
+                jlbl_playerName4.setText(playerName4);
+                //playerButtonsEnablen(player4.spielerFarbe);
             }
+        }
+    }
+
+    private void resetSpielfeld() {
+        setAttributes();
+        //booleans zurücksetzen
+        blockZuSetzen = false;
+        schonGewuerfelt = false;
+        //neu zeichnen
+        iter = allePlayer.listIterator(0);
+        nextPlayer();
+        //Startfelder zurücksetzen und alle Felder mit ihrem neuen-alten Content zeichnen
+        for (Object c : jpnl_alleFelder.getComponents()) {
+            if (c.getClass() == Feld.class) {
+                Feld feld = (Feld) c;
+                feld.setBackground(getColorFromContent(feld.inhalt));
+            }
+            else if (c.getClass() == Startfeld.class) {
+                Startfeld sf = (Startfeld) c;
+                sf.schonGeruecktWorden = false;
+                sf.setBackground(getColorFromContent(sf.inhalt));
+            }
+        }
+        //Buttons disablen
+        playerButtonsDisablen();
+        //Actionbuttons zurücksetzen
+        jbtn_wuerfeln.setEnabled(true);
+        jbtn_aussetzen.setEnabled(false);
+    }
+
+    private Color getColorFromContent(Feld.content c) {
+        switch (c) {
+            case RED:
+                return Color.RED;
+            case GREEN:
+                return Color.GREEN;
+            case YELLOW:
+                return Color.YELLOW;
+            case BLUE:
+                return Color.BLUE;
+            case BLACK:
+                return Color.BLACK;
+            case GOAL:
+                return Color.MAGENTA;
+            case BLOCK:
+                return Color.WHITE;
+            //default : return null;                        //möglich, wollen aber lieber eine Farbe als null zurückgeben
+            default:
+                return Color.PINK;
         }
     }
 
@@ -160,41 +202,22 @@ public class Spielfeld extends javax.swing.JFrame {
             if (aktuellesFeld.inhalt != Feld.content.BLOCK) {
                 for (Feld nachbar : aktuellesFeld.nachbarn) {
                     if (nachbar != altesFeld) {
-                        if (nachbar.getClass() != Startfeld.class) {
-                            propagiereRueckOptionen(nachbar, spruenge - 1, aktuellesFeld, spielerContent);
-                        }
-
+                        //if (nachbar.getClass() != Startfeld.class) {
+                        propagiereRueckOptionen(nachbar, spruenge - 1, aktuellesFeld, spielerContent);
+                        //}
                     }
                 }
             }
         } else {
             if (aktuellesFeld.inhalt != spielerContent) {                                       //eigene Felder werden nicht gefärbt. Man kann also nicht auf eigene Figuren rücken
-                aktuellesFeld.setBackground(Color.CYAN);
+                aktuellesFeld.setBackground(Color.GRAY);
             }
             if (aktuellesFeld.inhalt == Feld.content.BLOCK) {
                 aktuellesFeld.setText("BLOCK");
             }
-            if (aktuellesFeld.inhalt.getStelle() <= spielerAnzahl && aktuellesFeld.inhalt != spielerContent) {
-                //aktuellesFeld.setText("Gegner");
-
-                switch (aktuellesFeld.inhalt) {
-                    case RED:
-                        //aktuellesFeld.setForeground(Color.RED);
-                        aktuellesFeld.setText("Red");
-                        break;
-                    case GREEN:
-                        //aktuellesFeld.setForeground(Color.GREEN);
-                        aktuellesFeld.setText("Green");
-                        break;
-                    case YELLOW:
-                        //aktuellesFeld.setForeground(Color.YELLOW);
-                        aktuellesFeld.setText("Yellow");
-                        break;
-                    case BLUE:
-                        //aktuellesFeld.setForeground(Color.BLUE);
-                        aktuellesFeld.setText("Blue");
-                        break;
-                }
+            if (aktuellesFeld.inhalt.getStelle() <= playerAnzahl && aktuellesFeld.inhalt != spielerContent) {       //enum kennt implizit keine Zahlenwerte für die Inhalte
+                aktuellesFeld.setText(aktuellesFeld.inhalt.toString());
+                aktuellesFeld.setForeground(getColorFromContent(aktuellesFeld.inhalt));
             }
             if (aktuellesFeld.inhalt == Feld.content.GOAL) {
                 aktuellesFeld.setText("Ziel!");
@@ -203,37 +226,32 @@ public class Spielfeld extends javax.swing.JFrame {
     }
 
     private void nextPlayer() {
-        if (it.hasNext()) {
-            an_der_Reihe = (Player) it.next();
-            //System.out.println("Spieler " + an_der_Reihe.spielerFarbe + ". Sie sind an der Reihe");
-            jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte würfeln Sie.");
-        } else {
-            it = player.listIterator();
-            an_der_Reihe = it.next();
-            //System.out.println("Spieler " + an_der_Reihe.spielerFarbe + ". Sie sind an der Reihe");
-            jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte würfeln Sie.");
+        if (!(iter.hasNext())) {
+            iter = allePlayer.listIterator();
         }
-        jlbl_wuerfelzahl.setText("");                           //ist eigentlich bereits abgefangen, sieht aber für den Spieler besser aus
-        schongewuerfelt = false;
+        yourTurn = iter.next();
+        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte würfeln Sie.");
+        jlbl_wurfzahl.setText("");                           //ist eigentlich bereits abgefangen, sieht aber für den Spieler besser aus
+        schonGewuerfelt = false;
         jbtn_wuerfeln.setEnabled(true);
         jbtn_aussetzen.setEnabled(false);
-        propagiereZuruecksetzen();
-        //playerButtonsDisablen();
-        //playerButtonsEnablen();
+        playerButtonsDisablen();
     }
 
     private void playerButtonsDisablen() {
         for (Object c : jpnl_alleFelder.getComponents()) {
             if (c.getClass() == Startfeld.class) {
                 Startfeld startfeld = (Startfeld) c;
-                if (startfeld.inhalt != an_der_Reihe.spielerFarbe) {
+                if (startfeld.inhalt != yourTurn.spielerFarbe) {
                     startfeld.setEnabled(false);
+                } else if (!startfeld.schonGeruecktWorden) {
+                    startfeld.setEnabled(true);
                 }
             }
         }
     }
 
-    private void playerButtonsEnablen(Feld.content playerColor) {
+    /*private void playerButtonsEnablen(Feld.content playerColor) {
         for (Object c : jpnl_alleFelder.getComponents()) {
             if (c.getClass() == Startfeld.class) {
                 Startfeld startfeld = (Startfeld) c;
@@ -242,50 +260,16 @@ public class Spielfeld extends javax.swing.JFrame {
                 }
             }
         }
-    }
-
-    private void propagiereZuruecksetzen() {
-        for (Object c : jpnl_alleFelder.getComponents()) {
+    }*/
+    private void rueckOptionenZuruecksetzen() {
+        for (Object c : jpnl_alleFelder.getComponents()) {                  //Möglicherweise Startfelder filtern
             if (c.getClass() == Feld.class) {
                 Feld feld = (Feld) c;
-
-                switch (feld.inhalt) {
-                    case RED:
-                        feld.setBackground(Color.RED);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-
-                    case GREEN:
-                        feld.setBackground(Color.GREEN);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-                    case YELLOW:
-                        feld.setBackground(Color.YELLOW);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-                    case BLUE:
-                        feld.setBackground(Color.BLUE);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-                    case BLACK:
-                        feld.setBackground(Color.BLACK);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-                    case BLOCK:
-                        feld.setBackground(Color.WHITE);
-                        feld.setText("");
-                        feld.setForeground(Color.BLACK);
-                        break;
-                    case GOAL:
-                        feld.setBackground(Color.MAGENTA);
-                        break;
+                feld.setBackground(getColorFromContent(feld.inhalt));
+                if (feld.inhalt != Feld.content.GOAL) {
+                    feld.setText("");
+                    feld.setForeground(Color.BLACK);
                 }
-
             }
         }
     }
@@ -295,9 +279,9 @@ public class Spielfeld extends javax.swing.JFrame {
         propTer.inhalt = propDer.inhalt;
         propTer.setBackground(propDer.getBackground());
         if (propDer.getClass() == Startfeld.class) {
-            propDer.setEnabled(false);
-            //Startfeld sf = (Startfeld) propDer;
-            propDer.schonGeruecktWorden = true;
+            Startfeld startfeld = (Startfeld) propDer;
+            startfeld.setEnabled(false);
+            startfeld.schonGeruecktWorden = true;
         } else {
             propDer.inhalt = Feld.content.BLACK;
             propDer.setBackground(Color.BLACK);
@@ -317,9 +301,8 @@ public class Spielfeld extends javax.swing.JFrame {
                 schlagen(ursprungscontent);
                 break;
             case BLOCK:
-                jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
+                jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
                 blockZuSetzen = true;
-                jbtn_wuerfeln.setEnabled(false);
                 jbtn_aussetzen.setEnabled(false);
                 break;
             case GOAL:
@@ -327,7 +310,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 break;
         }
 
-        propagiereZuruecksetzen();
+        rueckOptionenZuruecksetzen();
 
     }
 
@@ -341,34 +324,26 @@ public class Spielfeld extends javax.swing.JFrame {
                         startfeld.schonGeruecktWorden = false;
                         break;
                     }
-
                 }
             }
         }
     }
 
-    private void blockSetzen(Feld wirdBlock) {
-        if (wirdBlock.entfernung_zum_ziel <= 36) {
-            if (wirdBlock.inhalt == Feld.content.BLACK) {
-                wirdBlock.inhalt = Feld.content.BLOCK;
-                wirdBlock.setBackground(Color.WHITE);
-                blockZuSetzen = false;
-                //jbtn_wuerfeln.setEnabled(true);
-                //jbtn_aussetzen.setEnabled(true);
-                nextPlayer();
-            }
-        }
+    private void blockieren(Feld wirdBlock) {
+        wirdBlock.inhalt = Feld.content.BLOCK;
+        wirdBlock.setBackground(Color.WHITE);
+        blockZuSetzen = false;
     }
 
-    private void gewinnen() {
-        //playerButtonsDisablen();
+    private void gewinnen() {               //JOptionPane öffnen
         someoneWon = true;
         jbtn_wuerfeln.setEnabled(false);
         jbtn_aussetzen.setEnabled(false);
-        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Sie haben gewonnen!");
+        JOptionPane.showMessageDialog(null, "Spieler " + yourTurn.spielerName + ": Sie haben gewonnen!");
+        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Sie haben gewonnen!");
     }
 
-    private void nachbarn() {
+    private void setNeighbors() {
         //weise nachbarn zu
         jbtn_0_ziel.setNachbar(jbtn_1);
         jbtn_1.setNachbar(jbtn_0_ziel, jbtn_2_1, jbtn_2_2);
@@ -478,10 +453,10 @@ public class Spielfeld extends javax.swing.JFrame {
         jbtn_38_6.setNachbar(jbtn_37_4, jbtn_39_3);
         jbtn_38_7.setNachbar(jbtn_37_4, jbtn_39_4);
         jbtn_38_8.setNachbar(jbtn_37_5, jbtn_39_4);
-        jbtn_39_1.setNachbar(jbtn_38_1, jbtn_38_2, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);
-        jbtn_39_2.setNachbar(jbtn_38_3, jbtn_38_4, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);
-        jbtn_39_3.setNachbar(jbtn_38_5, jbtn_38_6, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);
-        jbtn_39_4.setNachbar(jbtn_38_7, jbtn_38_8, jbtn_40_blue_1, jbtn_40_blue_2, jbtn_40_blue_3, jbtn_40_blue_4, jbtn_40_blue_5);
+        jbtn_39_1.setNachbar(jbtn_38_1, jbtn_38_2); //, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);                     // Nachbarschaft in die Startfelder wird bewusst weggelassen
+        jbtn_39_2.setNachbar(jbtn_38_3, jbtn_38_4); //, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);           // weil man nicht zurück in die startfelder rücken darf
+        jbtn_39_3.setNachbar(jbtn_38_5, jbtn_38_6); //, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);      // Außerdem wird damit in rücken verhindert, dass die Rekursion
+        jbtn_39_4.setNachbar(jbtn_38_7, jbtn_38_8); //, jbtn_40_blue_1, jbtn_40_blue_2, jbtn_40_blue_3, jbtn_40_blue_4, jbtn_40_blue_5);                // zurück in die Startfelder geht
         jbtn_40_red_1.setNachbar(jbtn_39_1);
         jbtn_40_red_2.setNachbar(jbtn_39_1);
         jbtn_40_red_3.setNachbar(jbtn_39_1);
@@ -502,7 +477,140 @@ public class Spielfeld extends javax.swing.JFrame {
         jbtn_40_blue_3.setNachbar(jbtn_39_4);
         jbtn_40_blue_4.setNachbar(jbtn_39_4);
         jbtn_40_blue_5.setNachbar(jbtn_39_4);
+    }
 
+    private void setAttributes() {
+        jbtn_0_ziel.setAttributes(Feld.content.GOAL, 0);
+        jbtn_1.setAttributes(Feld.content.BLOCK, 1);
+        jbtn_2_1.setAttributes(Feld.content.BLACK, 2);
+        jbtn_2_2.setAttributes(Feld.content.BLACK, 2);
+        jbtn_3_1.setAttributes(Feld.content.BLACK, 3);
+        jbtn_3_2.setAttributes(Feld.content.BLACK, 3);
+        jbtn_4_1.setAttributes(Feld.content.BLACK, 4);
+        jbtn_4_2.setAttributes(Feld.content.BLACK, 4);
+        jbtn_5_1.setAttributes(Feld.content.BLACK, 5);
+        jbtn_5_2.setAttributes(Feld.content.BLACK, 5);
+        jbtn_6_1.setAttributes(Feld.content.BLACK, 6);
+        jbtn_6_2.setAttributes(Feld.content.BLACK, 6);
+        jbtn_7_1.setAttributes(Feld.content.BLACK, 7);
+        jbtn_7_2.setAttributes(Feld.content.BLACK, 7);
+        jbtn_8_1.setAttributes(Feld.content.BLACK, 8);
+        jbtn_8_2.setAttributes(Feld.content.BLACK, 8);
+        jbtn_9_1.setAttributes(Feld.content.BLACK, 9);
+        jbtn_9_2.setAttributes(Feld.content.BLACK, 9);
+        jbtn_10_1.setAttributes(Feld.content.BLACK, 10);
+        jbtn_10_2.setAttributes(Feld.content.BLACK, 10);
+        jbtn_11_1.setAttributes(Feld.content.BLACK, 11);
+        jbtn_11_2.setAttributes(Feld.content.BLACK, 11);
+        jbtn_12_1.setAttributes(Feld.content.BLACK, 12);
+        jbtn_12_2.setAttributes(Feld.content.BLACK, 12);
+        jbtn_13_1.setAttributes(Feld.content.BLACK, 13);
+        jbtn_13_2.setAttributes(Feld.content.BLACK, 13);
+        jbtn_14_1.setAttributes(Feld.content.BLACK, 14);
+        jbtn_14_2.setAttributes(Feld.content.BLACK, 14);
+        jbtn_15_1.setAttributes(Feld.content.BLACK, 15);
+        jbtn_15_2.setAttributes(Feld.content.BLACK, 15);
+        jbtn_16_1.setAttributes(Feld.content.BLACK, 16);
+        jbtn_16_2.setAttributes(Feld.content.BLACK, 16);
+        jbtn_17_1.setAttributes(Feld.content.BLACK, 17);
+        jbtn_17_2.setAttributes(Feld.content.BLACK, 17);
+        jbtn_18_1.setAttributes(Feld.content.BLACK, 18);
+        jbtn_18_2.setAttributes(Feld.content.BLACK, 18);
+        jbtn_19_1.setAttributes(Feld.content.BLOCK, 19);
+        jbtn_20_1.setAttributes(Feld.content.BLOCK, 20);
+        jbtn_21_1.setAttributes(Feld.content.BLOCK, 21);
+        jbtn_22_1.setAttributes(Feld.content.BLACK, 22);
+        jbtn_22_2.setAttributes(Feld.content.BLACK, 22);
+        jbtn_23_1.setAttributes(Feld.content.BLACK, 23);
+        jbtn_23_2.setAttributes(Feld.content.BLACK, 23);
+        jbtn_24_1.setAttributes(Feld.content.BLACK, 24);
+        jbtn_24_2.setAttributes(Feld.content.BLACK, 24);
+        jbtn_25_1.setAttributes(Feld.content.BLOCK, 25);
+        jbtn_25_2.setAttributes(Feld.content.BLOCK, 25);
+        jbtn_26_1.setAttributes(Feld.content.BLACK, 26);
+        jbtn_26_2.setAttributes(Feld.content.BLACK, 26);
+        jbtn_26_3.setAttributes(Feld.content.BLACK, 26);
+        jbtn_26_4.setAttributes(Feld.content.BLACK, 26);
+        jbtn_27_1.setAttributes(Feld.content.BLACK, 27);
+        jbtn_27_2.setAttributes(Feld.content.BLACK, 27);
+        jbtn_27_3.setAttributes(Feld.content.BLACK, 27);
+        jbtn_28_1.setAttributes(Feld.content.BLACK, 28);
+        jbtn_28_2.setAttributes(Feld.content.BLACK, 28);
+        jbtn_29_1.setAttributes(Feld.content.BLACK, 29);
+        jbtn_29_2.setAttributes(Feld.content.BLACK, 29);
+        jbtn_30_1.setAttributes(Feld.content.BLACK, 30);
+        jbtn_30_2.setAttributes(Feld.content.BLACK, 30);
+        jbtn_30_3.setAttributes(Feld.content.BLACK, 30);
+        jbtn_30_4.setAttributes(Feld.content.BLACK, 30);
+        jbtn_31_1.setAttributes(Feld.content.BLACK, 31);
+        jbtn_31_2.setAttributes(Feld.content.BLACK, 31);
+        jbtn_31_3.setAttributes(Feld.content.BLACK, 31);
+        jbtn_31_4.setAttributes(Feld.content.BLACK, 31);
+        jbtn_32_1.setAttributes(Feld.content.BLACK, 32);
+        jbtn_32_2.setAttributes(Feld.content.BLACK, 32);
+        jbtn_32_3.setAttributes(Feld.content.BLACK, 32);
+        jbtn_32_4.setAttributes(Feld.content.BLACK, 32);
+        jbtn_32_5.setAttributes(Feld.content.BLACK, 32);
+        jbtn_32_6.setAttributes(Feld.content.BLACK, 32);
+        jbtn_33_1.setAttributes(Feld.content.BLACK, 33);
+        jbtn_33_2.setAttributes(Feld.content.BLACK, 33);
+        jbtn_33_3.setAttributes(Feld.content.BLACK, 33);
+        jbtn_33_4.setAttributes(Feld.content.BLACK, 33);
+        jbtn_33_5.setAttributes(Feld.content.BLACK, 33);
+        jbtn_34_1.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_2.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_3.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_4.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_5.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_6.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_7.setAttributes(Feld.content.BLACK, 34);
+        jbtn_34_8.setAttributes(Feld.content.BLACK, 34);
+        jbtn_35_1.setAttributes(Feld.content.BLOCK, 35);
+        jbtn_35_2.setAttributes(Feld.content.BLOCK, 35);
+        jbtn_35_3.setAttributes(Feld.content.BLOCK, 35);
+        jbtn_35_4.setAttributes(Feld.content.BLOCK, 35);
+        jbtn_35_5.setAttributes(Feld.content.BLOCK, 35);
+        jbtn_36_1.setAttributes(Feld.content.BLACK, 36);
+        jbtn_36_2.setAttributes(Feld.content.BLACK, 36);
+        jbtn_36_3.setAttributes(Feld.content.BLACK, 36);
+        jbtn_36_4.setAttributes(Feld.content.BLACK, 36);
+        jbtn_36_5.setAttributes(Feld.content.BLACK, 36);
+        jbtn_37_1.setAttributes(Feld.content.BLACK, 37);
+        jbtn_37_2.setAttributes(Feld.content.BLACK, 37);
+        jbtn_37_3.setAttributes(Feld.content.BLACK, 37);
+        jbtn_37_4.setAttributes(Feld.content.BLACK, 37);
+        jbtn_37_5.setAttributes(Feld.content.BLACK, 37);
+        jbtn_38_1.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_2.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_3.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_4.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_5.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_6.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_7.setAttributes(Feld.content.BLACK, 38);
+        jbtn_38_8.setAttributes(Feld.content.BLACK, 38);
+        jbtn_39_1.setAttributes(Feld.content.BLACK, 39);
+        jbtn_39_2.setAttributes(Feld.content.BLACK, 39);
+        jbtn_39_3.setAttributes(Feld.content.BLACK, 39);
+        jbtn_39_4.setAttributes(Feld.content.BLACK, 39);
+        jbtn_40_red_1.setAttributes(Feld.content.RED, 40);
+        jbtn_40_red_2.setAttributes(Feld.content.RED, 40);
+        jbtn_40_red_3.setAttributes(Feld.content.RED, 40);
+        jbtn_40_red_4.setAttributes(Feld.content.RED, 40);
+        jbtn_40_red_5.setAttributes(Feld.content.RED, 40);
+        jbtn_40_green_1.setAttributes(Feld.content.GREEN, 40);
+        jbtn_40_green_2.setAttributes(Feld.content.GREEN, 40);
+        jbtn_40_green_3.setAttributes(Feld.content.GREEN, 40);
+        jbtn_40_green_4.setAttributes(Feld.content.GREEN, 40);
+        jbtn_40_green_5.setAttributes(Feld.content.GREEN, 40);
+        jbtn_40_yellow_1.setAttributes(Feld.content.YELLOW, 40);
+        jbtn_40_yellow_2.setAttributes(Feld.content.YELLOW, 40);
+        jbtn_40_yellow_3.setAttributes(Feld.content.YELLOW, 40);
+        jbtn_40_yellow_4.setAttributes(Feld.content.YELLOW, 40);
+        jbtn_40_yellow_5.setAttributes(Feld.content.YELLOW, 40);
+        jbtn_40_blue_1.setAttributes(Feld.content.BLUE, 40);
+        jbtn_40_blue_2.setAttributes(Feld.content.BLUE, 40);
+        jbtn_40_blue_3.setAttributes(Feld.content.BLUE, 40);
+        jbtn_40_blue_4.setAttributes(Feld.content.BLUE, 40);
     }
 
     /**
@@ -650,17 +758,17 @@ public class Spielfeld extends javax.swing.JFrame {
         jbtn_aussetzen = new javax.swing.JButton();
         jbtn_wuerfeln = new javax.swing.JButton();
         jbtn_beenden = new javax.swing.JButton();
-        jlbl_wuerfelzahl = new javax.swing.JLabel();
-        jlbl_anDerReihe = new javax.swing.JLabel();
+        jlbl_wurfzahl = new javax.swing.JLabel();
+        jlbl_anleitungen = new javax.swing.JLabel();
+        jbtn_reset = new javax.swing.JButton();
+        jlbl_playerName1 = new javax.swing.JLabel();
+        jlbl_playerName2 = new javax.swing.JLabel();
+        jlbl_playerName3 = new javax.swing.JLabel();
+        jlbl_playerName4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Project_M");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         jpnl_alleFelder.setName("jpnl_alleFelder"); // NOI18N
 
@@ -2048,7 +2156,7 @@ public class Spielfeld extends javax.swing.JFrame {
         jpnl_alleFelderLayout.setVerticalGroup(
             jpnl_alleFelderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnl_alleFelderLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(jpnl_alleFelderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpnl_alleFelderLayout.createSequentialGroup()
                         .addGroup(jpnl_alleFelderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2254,8 +2362,7 @@ public class Spielfeld extends javax.swing.JFrame {
                                             .addComponent(jbtn_40_blue_5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jbtn_40_blue_4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jbtn_40_blue_3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jbtn_36_4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbtn_36_4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jbtn_aussetzen.setText("Aussetzen");
@@ -2280,40 +2387,76 @@ public class Spielfeld extends javax.swing.JFrame {
             }
         });
 
-        jlbl_anDerReihe.setName("jlbl_anDerReihe"); // NOI18N
+        jlbl_anleitungen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbl_anleitungen.setName("jlbl_anleitungen"); // NOI18N
+
+        jbtn_reset.setLabel("reset");
+        jbtn_reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_resetActionPerformed(evt);
+            }
+        });
+
+        jlbl_playerName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jlbl_playerName2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jlbl_playerName3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jlbl_playerName4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jbtn_aussetzen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtn_beenden)
-                        .addGap(29, 29, 29))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtn_wuerfeln)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlbl_wuerfelzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(179, 179, 179)
-                        .addComponent(jlbl_anDerReihe, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jbtn_wuerfeln)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jlbl_wurfzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(102, 102, 102)
+                            .addComponent(jlbl_anleitungen, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jbtn_reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtn_beenden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(29, 29, 29)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jlbl_playerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jlbl_playerName2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
+                .addComponent(jlbl_playerName3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addComponent(jlbl_playerName4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbl_anDerReihe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtn_wuerfeln, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlbl_wuerfelzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlbl_playerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbl_playerName2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbl_playerName3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbl_playerName4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlbl_wurfzahl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtn_wuerfeln, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbl_anleitungen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbtn_reset)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtn_beenden)
@@ -2321,12 +2464,14 @@ public class Spielfeld extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jbtn_reset.getAccessibleContext().setAccessibleName("jbtn_reset");
+        jlbl_playerName1.getAccessibleContext().setAccessibleName("jlbl_playername1");
+        jlbl_playerName2.getAccessibleContext().setAccessibleName("jlbl_playername2");
+        jlbl_playerName3.getAccessibleContext().setAccessibleName("jlbl_playername3");
+        jlbl_playerName4.getAccessibleContext().setAccessibleName("jlbl_playername4");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowClosing
 
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed
         // TODO add your handling code here:
@@ -2338,48 +2483,46 @@ public class Spielfeld extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random Zahlenfee = new Random();
         wurfzahl = Zahlenfee.nextInt(6) + 1;
-        jlbl_wuerfelzahl.setText("" + wurfzahl);
-        schongewuerfelt = true;
+        jlbl_wurfzahl.setText("" + wurfzahl);
+        schonGewuerfelt = true;
         jbtn_aussetzen.setEnabled(true);
         jbtn_wuerfeln.setEnabled(false);
-        jlbl_anDerReihe.setText("Spieler " + an_der_Reihe.spielerName + ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
+        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
     }//GEN-LAST:event_jbtn_wuerfelnActionPerformed
 
     private void jbtn_ClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_ClickActionPerformed
         // TODO add your handling code here:
-        Feld myfeld = (Feld) evt.getSource();
-        if (!someoneWon) {
+        Feld myFeld = (Feld) evt.getSource();
+        if (schonGewuerfelt) {
             if (!blockZuSetzen) {
-                if (schongewuerfelt) {
-                    if (myfeld.getBackground() != Color.CYAN) {
-                        propagiereZuruecksetzen();
-                    }
-                    if (myfeld.getBackground() == Color.CYAN) {
-                        ruecken(myfeld, propagierender);
-                        if (!blockZuSetzen && !someoneWon) {
-                            nextPlayer();
-                        }
-                    } else if (myfeld.inhalt == an_der_Reihe.spielerFarbe) {
-                        propagierender = myfeld;
-                        propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
-                    }
+                if (myFeld.getBackground() != Color.GRAY) {
+                    rueckOptionenZuruecksetzen();
                 }
-            } else {
-                blockSetzen(myfeld);
+                if (myFeld.getBackground() == Color.GRAY) {
+                    ruecken(myFeld, propagierender);
+                    if (!blockZuSetzen && !someoneWon) {
+                        nextPlayer();
+                    }
+                } else if (myFeld.inhalt == yourTurn.spielerFarbe) {
+                    propagierender = myFeld;
+                    propagiereRueckOptionen(myFeld, wurfzahl, null, myFeld.inhalt);
+                }
+            } else if (myFeld.entfernung_zum_ziel <= 36 && myFeld.inhalt == Feld.content.BLACK) {
+                blockieren(myFeld);
+                nextPlayer();
             }
         }
-
-        //propagiereRueckOptionen(myfeld, wurfzahl, null, myfeld.inhalt);
-
     }//GEN-LAST:event_jbtn_ClickActionPerformed
 
     private void jbtn_aussetzenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_aussetzenActionPerformed
         // TODO add your handling code here:
-        //schongewuerfelt = false;
-        //jbtn_wuerfeln.setEnabled(true);
-        //jbtn_aussetzen.setEnabled(false);
         nextPlayer();
     }//GEN-LAST:event_jbtn_aussetzenActionPerformed
+
+    private void jbtn_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_resetActionPerformed
+        // TODO add your handling code here:
+        resetSpielfeld();
+    }//GEN-LAST:event_jbtn_resetActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     /*
@@ -2518,9 +2661,14 @@ public class Spielfeld extends javax.swing.JFrame {
     */
     private javax.swing.JButton jbtn_aussetzen;
     private javax.swing.JButton jbtn_beenden;
+    private javax.swing.JButton jbtn_reset;
     private javax.swing.JButton jbtn_wuerfeln;
-    private javax.swing.JLabel jlbl_anDerReihe;
-    private javax.swing.JLabel jlbl_wuerfelzahl;
+    private javax.swing.JLabel jlbl_anleitungen;
+    private javax.swing.JLabel jlbl_playerName1;
+    private javax.swing.JLabel jlbl_playerName2;
+    private javax.swing.JLabel jlbl_playerName3;
+    private javax.swing.JLabel jlbl_playerName4;
+    private javax.swing.JLabel jlbl_wurfzahl;
     private javax.swing.JPanel jpnl_alleFelder;
     // End of variables declaration//GEN-END:variables
 

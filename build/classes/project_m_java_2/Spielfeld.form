@@ -10,9 +10,6 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
-  <Events>
-    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
-  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -28,24 +25,36 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jpnl_alleFelder" min="-2" pref="986" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="jbtn_aussetzen" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jbtn_beenden" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Component id="jpnl_alleFelder" min="-2" pref="986" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jbtn_aussetzen" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jbtn_wuerfeln" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jlbl_wurfzahl" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                          <Component id="jlbl_anleitungen" min="-2" pref="557" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jbtn_wuerfeln" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jlbl_wuerfelzahl" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
-                      <Component id="jlbl_anDerReihe" min="-2" pref="557" max="-2" attributes="0"/>
+                  <EmptySpace min="713" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jbtn_reset" max="32767" attributes="0"/>
+                      <Component id="jbtn_beenden" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+              <Component id="jlbl_playerName1" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <Component id="jlbl_playerName2" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <Component id="jlbl_playerName3" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+              <Component id="jlbl_playerName4" min="-2" pref="150" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,16 +63,29 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jpnl_alleFelder" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jlbl_anDerReihe" max="32767" attributes="0"/>
-                  <Component id="jbtn_wuerfeln" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="jlbl_wuerfelzahl" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jlbl_playerName1" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jlbl_playerName2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jlbl_playerName3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jlbl_playerName4" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jlbl_wurfzahl" max="32767" attributes="0"/>
+                          <Component id="jbtn_wuerfeln" max="32767" attributes="0"/>
+                          <Component id="jlbl_anleitungen" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jbtn_reset" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtn_beenden" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtn_aussetzen" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -478,7 +500,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -732,7 +754,6 @@
                       </Group>
                       <Component id="jbtn_36_4" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -3022,12 +3043,56 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtn_beendenActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_wuerfelzahl">
+    <Component class="javax.swing.JLabel" name="jlbl_wurfzahl">
     </Component>
-    <Component class="javax.swing.JLabel" name="jlbl_anDerReihe">
+    <Component class="javax.swing.JLabel" name="jlbl_anleitungen">
       <Properties>
-        <Property name="name" type="java.lang.String" value="jlbl_anDerReihe" noResource="true"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="name" type="java.lang.String" value="jlbl_anleitungen" noResource="true"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtn_reset">
+      <Properties>
+        <Property name="label" type="java.lang.String" value="reset"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jbtn_reset"/>
+      </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtn_resetActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbl_playerName1">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jlbl_playername1"/>
+      </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbl_playerName2">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jlbl_playername2"/>
+      </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbl_playerName3">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jlbl_playername3"/>
+      </AccessibilityProperties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jlbl_playerName4">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="jlbl_playername4"/>
+      </AccessibilityProperties>
     </Component>
   </SubComponents>
 </Form>
