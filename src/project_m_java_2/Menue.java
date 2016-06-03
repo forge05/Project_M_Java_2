@@ -35,6 +35,7 @@ public class Menue extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
+        setResizable(false);
 
         jbtn_neuesSpiel.setLabel("Neues Spiel");
         jbtn_neuesSpiel.addActionListener(new java.awt.event.ActionListener() {

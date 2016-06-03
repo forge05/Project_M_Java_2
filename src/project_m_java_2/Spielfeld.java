@@ -151,6 +151,7 @@ public class Spielfeld extends javax.swing.JFrame {
     private void resetSpielfeld() {
         setAttributes();
         //booleans zurücksetzen
+        someoneWon = false;
         blockZuSetzen = false;
         schonGewuerfelt = false;
         //neu zeichnen

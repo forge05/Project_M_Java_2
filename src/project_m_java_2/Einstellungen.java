@@ -56,6 +56,7 @@ public class Einstellungen extends javax.swing.JFrame {
         jbtn_starten = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         tf_spielername_blue.setText("Blue");
         tf_spielername_blue.setName("tf_spielername_blue"); // NOI18N
