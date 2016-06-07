@@ -209,21 +209,19 @@ public class Spielfeld extends javax.swing.JFrame {
                     }
                 }
             }
-        } else {
-            if (aktuellesFeld.inhalt != spielerContent) {                                       //eigene Felder werden nicht gefärbt. Man kann also nicht auf eigene Figuren rücken
+        } else if (aktuellesFeld.inhalt != spielerContent) {                                       //eigene Felder werden nicht gefärbt. Man kann also nicht auf eigene Figuren rücken
                 aktuellesFeld.setBackground(Color.GRAY);
-            }
-            if (aktuellesFeld.inhalt == Feld.content.BLOCK) {
+                if (aktuellesFeld.inhalt == Feld.content.BLOCK) {
                 aktuellesFeld.setText("BLOCK");
-            }
-            if (aktuellesFeld.inhalt.getStelle() <= playerAnzahl && aktuellesFeld.inhalt != spielerContent) {       //enum kennt implizit keine Zahlenwerte für die Inhalte
+                }
+                if (aktuellesFeld.inhalt.getStelle() <= playerAnzahl && aktuellesFeld.inhalt != spielerContent) {       //enum kennt implizit keine Zahlenwerte für die Inhalte
                 aktuellesFeld.setText(aktuellesFeld.inhalt.toString());
                 aktuellesFeld.setForeground(getColorFromContent(aktuellesFeld.inhalt));
-            }
-            if (aktuellesFeld.inhalt == Feld.content.GOAL) {
+                }
+                else if (aktuellesFeld.inhalt == Feld.content.GOAL) {
                 aktuellesFeld.setText("Ziel!");
+                }
             }
-        }
     }
 
     private void nextPlayer() {
@@ -290,14 +288,14 @@ public class Spielfeld extends javax.swing.JFrame {
 
         switch (ursprungscontent) {                       //eigene Figuren können nicht geschlagen werden
             case RED:
-                schlagen(ursprungscontent);
-                break;
+                //schlagen(ursprungscontent);
+                //break;
             case GREEN:
-                schlagen(ursprungscontent);
-                break;
+                //schlagen(ursprungscontent);
+                //break;
             case YELLOW:
-                schlagen(ursprungscontent);
-                break;
+                //schlagen(ursprungscontent);
+                //break;
             case BLUE:
                 schlagen(ursprungscontent);
                 break;
