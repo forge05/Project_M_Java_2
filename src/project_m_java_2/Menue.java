@@ -76,6 +76,7 @@ public class Menue extends javax.swing.JFrame {
         jbtn_beenden.getAccessibleContext().setAccessibleName("jbtn_beenden");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed

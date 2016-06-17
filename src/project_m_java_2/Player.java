@@ -10,8 +10,8 @@ package project_m_java_2;
  * @author Nikolas
  */
 public class Player {
-    String spielerName;
-    Feld.content spielerFarbe;
+    String playerName;
+    Feld.content playerFarbe;
     Startfeld[] startfeldArray;
     
     public Player(Startfeld[] Startfelder)  //für KI wäre ein Array vom Typ Feld sinnvoller

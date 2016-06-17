@@ -229,6 +229,7 @@ public class Einstellungen extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtn_zurueckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_zurueckActionPerformed

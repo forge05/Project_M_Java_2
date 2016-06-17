@@ -229,7 +229,7 @@ public class Spielfeld extends javax.swing.JFrame {
             iter = allePlayer.listIterator();
         }
         yourTurn = iter.next();
-        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte würfeln Sie.");
+        jlbl_anleitungen.setText("Spieler " + yourTurn.playerName + ": Bitte würfeln Sie.");
         jlbl_wurfzahl.setText("");                           //ist eigentlich bereits abgefangen, sieht aber für den Spieler besser aus
         schonGewuerfelt = false;
         jbtn_wuerfeln.setEnabled(true);
@@ -241,7 +241,7 @@ public class Spielfeld extends javax.swing.JFrame {
         for (Object c : jpnl_alleFelder.getComponents()) {
             if (c.getClass() == Startfeld.class) {
                 Startfeld startfeld = (Startfeld) c;
-                if (startfeld.inhalt != yourTurn.spielerFarbe) {
+                if (startfeld.inhalt != yourTurn.playerFarbe) {
                     startfeld.setEnabled(false);
                 } else if (!startfeld.schonGeruecktWorden) {
                     startfeld.setEnabled(true);
@@ -300,7 +300,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 schlagen(ursprungscontent);
                 break;
             case BLOCK:
-                jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
+                jlbl_anleitungen.setText("Spieler " + yourTurn.playerName + ": Bitte Block setzen. Hinweis: unterste Reihe tabu.");
                 blockZuSetzen = true;
                 jbtn_aussetzen.setEnabled(false);
                 break;
@@ -338,8 +338,8 @@ public class Spielfeld extends javax.swing.JFrame {
         someoneWon = true;
         jbtn_wuerfeln.setEnabled(false);
         jbtn_aussetzen.setEnabled(false);
-        JOptionPane.showMessageDialog(null, "Spieler " + yourTurn.spielerName + ": Sie haben gewonnen!");
-        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Sie haben gewonnen!");
+        JOptionPane.showMessageDialog(null, "Spieler " + yourTurn.playerName + ": Sie haben gewonnen!");
+        jlbl_anleitungen.setText("Spieler " + yourTurn.playerName + ": Sie haben gewonnen!");
     }
 
     private void setNeighbors() {
@@ -2439,7 +2439,6 @@ public class Spielfeld extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpnl_alleFelder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2470,6 +2469,7 @@ public class Spielfeld extends javax.swing.JFrame {
         jlbl_playerName4.getAccessibleContext().setAccessibleName("jlbl_playername4");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed
@@ -2486,7 +2486,7 @@ public class Spielfeld extends javax.swing.JFrame {
         schonGewuerfelt = true;
         jbtn_aussetzen.setEnabled(true);
         jbtn_wuerfeln.setEnabled(false);
-        jlbl_anleitungen.setText("Spieler " + yourTurn.spielerName + ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
+        jlbl_anleitungen.setText("Spieler " + yourTurn.playerName + ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
     }//GEN-LAST:event_jbtn_wuerfelnActionPerformed
 
     private void jbtn_ClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_ClickActionPerformed
@@ -2502,7 +2502,7 @@ public class Spielfeld extends javax.swing.JFrame {
                     if (!blockZuSetzen && !someoneWon) {
                         nextPlayer();
                     }
-                } else if (myFeld.inhalt == yourTurn.spielerFarbe) {
+                } else if (myFeld.inhalt == yourTurn.playerFarbe) {
                     propagierender = myFeld;
                     propagiereRueckOptionen(myFeld, wurfzahl, null, myFeld.inhalt);
                 }

@@ -13,7 +13,7 @@ public class Spieler extends Player{
     
     public Spieler(String name, Feld.content inhalt, Startfeld... startfelder){
         super(startfelder);
-        this.spielerName = name;
-        this.spielerFarbe = inhalt;
+        this.playerName = name;
+        this.playerFarbe = inhalt;
     }
 }
