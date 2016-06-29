@@ -6,19 +6,12 @@
 package project_m_java_2;
 
 import java.awt.Color;
-import java.awt.List;
-import java.time.Clock;
 import java.util.Random;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
 /**
@@ -31,8 +24,6 @@ public class Spielfeld extends javax.swing.JFrame {
     Einstellungen jfrm_einstellungen;
     int wurfzahl;
     int playerAnzahl;
-    CopyOnWriteArrayList<Player> allePlayer;                            //ArrayList wirft ConcurrentModificationError. Um nur einem Thread Zugriff zu gestatten benutzen wir CopyOnWriteArrayList
-    ListIterator<Player> iter;
     String playerName1;
     String playerName2;
     String playerName3;
@@ -46,15 +37,19 @@ public class Spielfeld extends javax.swing.JFrame {
     Player player4;
     Player yourTurn;
     Feld propagierender;
+    //ArrayList wirft ConcurrentModificationError. 
+    //Um nur einem Thread Zugriff zu gestatten benutzen wir CopyOnWriteArrayList
+    CopyOnWriteArrayList<Player> allePlayer;
+    ListIterator<Player> iter;
 
     /**
      * Creates new form Spielfeld
      */
     public Spielfeld(Menue Menu, Einstellungen einstellungen) {
         jfrm_menu = Menu;
-        jfrm_einstellungen = einstellungen;                      //radioButtons einfügen um Auswahl zu treffen, wer anfangen darf/soll
+        jfrm_einstellungen = einstellungen;
         allePlayer = new CopyOnWriteArrayList();
-        iter = allePlayer.listIterator(0);                            //int index beginnt ab position index
+        iter = allePlayer.listIterator();
         initComponents();
         erstellePlayer();
         setNeighbors();
@@ -155,15 +150,14 @@ public class Spielfeld extends javax.swing.JFrame {
         blockZuSetzen = false;
         schonGewuerfelt = false;
         //neu zeichnen
-        iter = allePlayer.listIterator(0);
+        iter = allePlayer.listIterator();
         nextPlayer();
         //Startfelder zurücksetzen und alle Felder mit ihrem neuen-alten Content zeichnen
         for (Object c : jpnl_alleFelder.getComponents()) {
             if (c.getClass() == Feld.class) {
                 Feld feld = (Feld) c;
                 feld.setBackground(getColorFromContent(feld.inhalt));
-            }
-            else if (c.getClass() == Startfeld.class) {
+            } else if (c.getClass() == Startfeld.class) {
                 Startfeld sf = (Startfeld) c;
                 sf.schonGeruecktWorden = false;
                 sf.setBackground(getColorFromContent(sf.inhalt));
@@ -210,18 +204,17 @@ public class Spielfeld extends javax.swing.JFrame {
                 }
             }
         } else if (aktuellesFeld.inhalt != spielerContent) {                                       //eigene Felder werden nicht gefärbt. Man kann also nicht auf eigene Figuren rücken
-                aktuellesFeld.setBackground(Color.GRAY);
-                if (aktuellesFeld.inhalt == Feld.content.BLOCK) {
+            aktuellesFeld.setBackground(Color.GRAY);
+            if (aktuellesFeld.inhalt == Feld.content.BLOCK) {
                 aktuellesFeld.setText("BLOCK");
-                }
-                if (aktuellesFeld.inhalt.getStelle() <= playerAnzahl && aktuellesFeld.inhalt != spielerContent) {       //enum kennt implizit keine Zahlenwerte für die Inhalte
+            }
+            if (aktuellesFeld.inhalt.getStelle() <= playerAnzahl && aktuellesFeld.inhalt != spielerContent) {       //enum kennt implizit keine Zahlenwerte für die Inhalte
                 aktuellesFeld.setText(aktuellesFeld.inhalt.toString());
                 aktuellesFeld.setForeground(getColorFromContent(aktuellesFeld.inhalt));
-                }
-                else if (aktuellesFeld.inhalt == Feld.content.GOAL) {
+            } else if (aktuellesFeld.inhalt == Feld.content.GOAL) {
                 aktuellesFeld.setText("Ziel!");
-                }
             }
+        }
     }
 
     private void nextPlayer() {
@@ -288,14 +281,14 @@ public class Spielfeld extends javax.swing.JFrame {
 
         switch (ursprungscontent) {                       //eigene Figuren können nicht geschlagen werden
             case RED:
-                //schlagen(ursprungscontent);
-                //break;
+            //schlagen(ursprungscontent);
+            //break;
             case GREEN:
-                //schlagen(ursprungscontent);
-                //break;
+            //schlagen(ursprungscontent);
+            //break;
             case YELLOW:
-                //schlagen(ursprungscontent);
-                //break;
+            //schlagen(ursprungscontent);
+            //break;
             case BLUE:
                 schlagen(ursprungscontent);
                 break;
@@ -2482,7 +2475,10 @@ public class Spielfeld extends javax.swing.JFrame {
         // TODO add your handling code here:
         Random Zahlenfee = new Random();
         wurfzahl = Zahlenfee.nextInt(6) + 1;
-        jlbl_wurfzahl.setText("" + wurfzahl);
+        jlbl_wurfzahl.setText(Integer.toString(wurfzahl));
+        //jlbl_wurfzahl.setText(String.valueOf(wurfzahl));  //geht auch
+        //jlbl_wurfzahl.setText("" + wurfzahl);            //geht auch
+        //jlbl_wurfzahl.setText(wurfzahl.toString());       //geht nicht
         schonGewuerfelt = true;
         jbtn_aussetzen.setEnabled(true);
         jbtn_wuerfeln.setEnabled(false);
@@ -2492,25 +2488,28 @@ public class Spielfeld extends javax.swing.JFrame {
     private void jbtn_ClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_ClickActionPerformed
         // TODO add your handling code here:
         Feld myFeld = (Feld) evt.getSource();
-        if (schonGewuerfelt) {
-            if (!blockZuSetzen) {
-                if (myFeld.getBackground() != Color.GRAY) {
-                    rueckOptionenZuruecksetzen();
-                }
-                if (myFeld.getBackground() == Color.GRAY) {
-                    ruecken(myFeld, propagierender);
-                    if (!blockZuSetzen && !someoneWon) {
-                        nextPlayer();
+        if (!someoneWon) {
+            if (schonGewuerfelt) {
+                if (!blockZuSetzen) {
+                    if (myFeld.getBackground() != Color.GRAY) {
+                        rueckOptionenZuruecksetzen();
                     }
-                } else if (myFeld.inhalt == yourTurn.playerFarbe) {
-                    propagierender = myFeld;
-                    propagiereRueckOptionen(myFeld, wurfzahl, null, myFeld.inhalt);
+                    if (myFeld.getBackground() == Color.GRAY) {
+                        ruecken(myFeld, propagierender);
+                        if (!blockZuSetzen && !someoneWon) {
+                            nextPlayer();
+                        }
+                    } else if (myFeld.inhalt == yourTurn.playerFarbe) {
+                        propagierender = myFeld;
+                        propagiereRueckOptionen(myFeld, wurfzahl, null, myFeld.inhalt);
+                    }
+                } else if (myFeld.entfernung_zum_ziel <= 36 && myFeld.inhalt == Feld.content.BLACK) {
+                    blockieren(myFeld);
+                    nextPlayer();
                 }
-            } else if (myFeld.entfernung_zum_ziel <= 36 && myFeld.inhalt == Feld.content.BLACK) {
-                blockieren(myFeld);
-                nextPlayer();
             }
         }
+
     }//GEN-LAST:event_jbtn_ClickActionPerformed
 
     private void jbtn_aussetzenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_aussetzenActionPerformed
