@@ -228,6 +228,7 @@ public class Spielfeld extends javax.swing.JFrame {
         jbtn_wuerfeln.setEnabled(true);
         jbtn_aussetzen.setEnabled(false);
         playerButtonsDisablen();
+        rueckOptionenZuruecksetzen();
     }
 
     private void playerButtonsDisablen() {
