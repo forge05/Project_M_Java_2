@@ -17,31 +17,24 @@ public class Feld extends JButton{
     content inhalt;
     Feld[] nachbarn;
     
-    public Feld(content c, int distanz){
-        entfernung_zum_ziel = distanz;
-        inhalt = c;
-    }
+//    public Feld(){
+//    }
+    
+//    public Feld(content c, int distanz){
+//        entfernung_zum_ziel = distanz;
+//        inhalt = c;
+//    }
 
     public void setNachbar(Feld... felder) {
         nachbarn = felder;
     }   
-    public enum content {
-        RED(1),
-        GREEN(2),
-        YELLOW(3),
-        BLUE(4),
-        BLACK(5),
-        GOAL(6),
-        BLOCK(7);
+    public enum content{
+        RED(1), GREEN(2), YELLOW(3), BLUE(4), BLACK(5), GOAL(6), BLOCK(7);
 
-        private final int stelle;
-
+        public final int stelle;
+        
         content(int stelle) {
             this.stelle = stelle;
-        }
-
-        public int getStelle() {
-            return this.stelle;
         }
     }
     
