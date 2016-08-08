@@ -1,21 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package project_m_java_2;
 
 import java.awt.Frame;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-/**
- *
- * @author Nikolas
- */
 public class Einstellungen extends javax.swing.JFrame {
 
-    
     Menue jfrm_Menu;
     /**
      * Creates new form Einstellungen
@@ -24,7 +12,7 @@ public class Einstellungen extends javax.swing.JFrame {
         jfrm_Menu = Menu;
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,6 +42,10 @@ public class Einstellungen extends javax.swing.JFrame {
         tf_spielername_yellow = new javax.swing.JTextField();
         jrb_anz_2 = new javax.swing.JRadioButton();
         jbtn_starten = new javax.swing.JButton();
+        jlbl_red = new java.awt.Label();
+        jlbl_blue = new java.awt.Label();
+        jlbl_green = new java.awt.Label();
+        jlbl_yellow = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -65,11 +57,12 @@ public class Einstellungen extends javax.swing.JFrame {
         jrb_anz_3.setText("3");
         jrb_anz_3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb_anz_3ActionPerformed(evt);
+                jrb_ActionPerformed(evt);
             }
         });
 
         jcb_cpu_red.setText("CPU");
+        jcb_cpu_red.setEnabled(false);
         jcb_cpu_red.setName("jcb_cpu_red"); // NOI18N
 
         bg_anz_spieler.add(jrb_anz_4);
@@ -77,21 +70,24 @@ public class Einstellungen extends javax.swing.JFrame {
         jrb_anz_4.setText("4");
         jrb_anz_4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb_anz_4ActionPerformed(evt);
+                jrb_ActionPerformed(evt);
             }
         });
 
         jcb_spu_green.setText("CPU");
+        jcb_spu_green.setEnabled(false);
         jcb_spu_green.setName("jcb_cpu_green"); // NOI18N
 
         jlbl_anz_spieler.setText("Anzahl Spieler");
 
         jcb_cpu_yellow.setText("CPU");
+        jcb_cpu_yellow.setEnabled(false);
         jcb_cpu_yellow.setName("jcb_cpu_yellow"); // NOI18N
 
         jlbl_spieler1.setText("Spieler 1");
 
         jcb_cpu_blue.setText("CPU");
+        jcb_cpu_blue.setEnabled(false);
         jcb_cpu_blue.setName("jcb_cpu_blue"); // NOI18N
 
         jlbl_spieler2.setText("Spieler 2");
@@ -120,7 +116,7 @@ public class Einstellungen extends javax.swing.JFrame {
         jrb_anz_2.setText("2");
         jrb_anz_2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrb_anz_2ActionPerformed(evt);
+                jrb_ActionPerformed(evt);
             }
         });
 
@@ -132,12 +128,20 @@ public class Einstellungen extends javax.swing.JFrame {
             }
         });
 
+        jlbl_red.setBackground(java.awt.Color.red);
+
+        jlbl_blue.setBackground(java.awt.Color.blue);
+
+        jlbl_green.setBackground(java.awt.Color.green);
+
+        jlbl_yellow.setBackground(java.awt.Color.yellow);
+
         javax.swing.GroupLayout jpnl_einstellungenLayout = new javax.swing.GroupLayout(jpnl_einstellungen);
         jpnl_einstellungen.setLayout(jpnl_einstellungenLayout);
         jpnl_einstellungenLayout.setHorizontalGroup(
             jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(18, 18, 18)
                 .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
                         .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,23 +150,29 @@ public class Einstellungen extends javax.swing.JFrame {
                             .addComponent(jlbl_spieler3)
                             .addComponent(jlbl_spieler4))
                         .addGap(18, 18, 18)
-                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
-                                .addComponent(tf_spielername_red, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcb_cpu_red))
-                            .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
-                                .addComponent(tf_spielername_green, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21)
-                                .addComponent(jcb_spu_green))
-                            .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_spielername_yellow)
+                                    .addComponent(tf_spielername_blue, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_spielername_yellow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tf_spielername_blue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcb_cpu_blue)
-                                    .addComponent(jcb_cpu_yellow)))))
+                                    .addComponent(jlbl_blue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlbl_yellow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                                .addComponent(tf_spielername_green, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlbl_green, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                                .addComponent(tf_spielername_red, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlbl_red, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcb_cpu_blue)
+                            .addComponent(jcb_cpu_yellow)
+                            .addComponent(jcb_spu_green)
+                            .addComponent(jcb_cpu_red)))
                     .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
                         .addComponent(jlbl_anz_spieler)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -171,45 +181,60 @@ public class Einstellungen extends javax.swing.JFrame {
                         .addComponent(jrb_anz_3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jrb_anz_4))
-                    .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jbtn_starten, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtn_zurueck, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnl_einstellungenLayout.createSequentialGroup()
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jbtn_starten, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbtn_zurueck, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(51, 51, 51)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnl_einstellungenLayout.setVerticalGroup(
             jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jrb_anz_2)
-                    .addComponent(jrb_anz_3)
-                    .addComponent(jrb_anz_4)
-                    .addComponent(jlbl_anz_spieler))
-                .addGap(26, 26, 26)
-                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbl_spieler1)
-                    .addComponent(tf_spielername_red, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcb_cpu_red))
-                .addGap(18, 18, 18)
-                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbl_spieler2)
-                    .addComponent(tf_spielername_green, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcb_spu_green))
-                .addGap(18, 18, 18)
-                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbl_spieler3)
-                    .addComponent(tf_spielername_yellow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcb_cpu_yellow))
-                .addGap(18, 18, 18)
-                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbl_spieler4)
-                    .addComponent(tf_spielername_blue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcb_cpu_blue))
+                .addGap(27, 27, 27)
+                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jrb_anz_2)
+                            .addComponent(jrb_anz_3)
+                            .addComponent(jrb_anz_4)
+                            .addComponent(jlbl_anz_spieler))
+                        .addGap(26, 26, 26)
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlbl_spieler1)
+                            .addComponent(tf_spielername_red, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbl_red, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jlbl_spieler2)
+                                .addComponent(tf_spielername_green, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlbl_green, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jlbl_spieler3)
+                                    .addComponent(tf_spielername_yellow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jpnl_einstellungenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jlbl_spieler4)
+                                    .addComponent(tf_spielername_blue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlbl_blue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jlbl_yellow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpnl_einstellungenLayout.createSequentialGroup()
+                        .addComponent(jcb_cpu_red)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcb_spu_green)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcb_cpu_yellow)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcb_cpu_blue)))
                 .addGap(18, 18, 18)
                 .addComponent(jbtn_starten)
                 .addGap(3, 3, 3)
                 .addComponent(jbtn_zurueck)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,9 +249,8 @@ public class Einstellungen extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpnl_einstellungen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpnl_einstellungen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -247,31 +271,31 @@ public class Einstellungen extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jbtn_startenActionPerformed
 
-    private void jrb_anz_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_anz_3ActionPerformed
+    private void jrb_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_ActionPerformed
         // TODO add your handling code here:
-        tf_spielername_blue.setEnabled(false);
-        jcb_cpu_blue.setEnabled(false);
-        tf_spielername_yellow.setEnabled(true);
-        jcb_cpu_yellow.setEnabled(true);
-    }//GEN-LAST:event_jrb_anz_3ActionPerformed
-
-    private void jrb_anz_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_anz_2ActionPerformed
-        // TODO add your handling code here:
-        tf_spielername_blue.setEnabled(false);
-        jcb_cpu_blue.setEnabled(false);
-        tf_spielername_yellow.setEnabled(false);
-        jcb_cpu_yellow.setEnabled(false);
-    }//GEN-LAST:event_jrb_anz_2ActionPerformed
-
-    private void jrb_anz_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrb_anz_4ActionPerformed
-        // TODO add your handling code here:
-        tf_spielername_blue.setEnabled(true);
-        jcb_cpu_blue.setEnabled(true);
-        tf_spielername_yellow.setEnabled(true);
-        jcb_cpu_yellow.setEnabled(true);
-    }//GEN-LAST:event_jrb_anz_4ActionPerformed
-
-
+        if(jrb_anz_2.isSelected()) {
+            tf_spielername_yellow.setEnabled(false);
+            tf_spielername_yellow.setText("Yellow");
+            //jcb_cpu_yellow.setEnabled(false);
+            tf_spielername_blue.setEnabled(false);
+            tf_spielername_blue.setText("Blue");
+            //jcb_cpu_blue.setEnabled(false);
+        }
+        else if(jrb_anz_3.isSelected()) {
+            tf_spielername_yellow.setEnabled(true);
+            tf_spielername_yellow.setText("Yellow");
+            //jcb_cpu_yellow.setEnabled(true);
+            tf_spielername_blue.setEnabled(false);
+            tf_spielername_blue.setText("Blue");
+            //jcb_cpu_blue.setEnabled(false);
+            }
+        else {
+            tf_spielername_yellow.setEnabled(true);
+            //jcb_cpu_yellow.setEnabled(true);
+            tf_spielername_blue.setEnabled(true);
+            //jcb_cpu_blue.setEnabled(false);
+            }
+    }//GEN-LAST:event_jrb_ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bg_anz_spieler;
     private javax.swing.JButton jbtn_starten;
@@ -281,10 +305,14 @@ public class Einstellungen extends javax.swing.JFrame {
     private javax.swing.JCheckBox jcb_cpu_yellow;
     private javax.swing.JCheckBox jcb_spu_green;
     private javax.swing.JLabel jlbl_anz_spieler;
+    private java.awt.Label jlbl_blue;
+    private java.awt.Label jlbl_green;
+    private java.awt.Label jlbl_red;
     private javax.swing.JLabel jlbl_spieler1;
     private javax.swing.JLabel jlbl_spieler2;
     private javax.swing.JLabel jlbl_spieler3;
     private javax.swing.JLabel jlbl_spieler4;
+    private java.awt.Label jlbl_yellow;
     public javax.swing.JPanel jpnl_einstellungen;
     private javax.swing.JRadioButton jrb_anz_2;
     private javax.swing.JRadioButton jrb_anz_3;

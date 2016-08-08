@@ -1,16 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package project_m_java_2;
 
-import javax.swing.JFrame;
-
-/**
- *
- * @author Nikolas
- */
 public class Menue extends javax.swing.JFrame {
 
     Einstellungen jfrm_einstellungen;
@@ -19,6 +8,7 @@ public class Menue extends javax.swing.JFrame {
      */
     public Menue() {
         initComponents();
+        jfrm_einstellungen = new Einstellungen(this);
     }
 
     /**
@@ -82,9 +72,7 @@ public class Menue extends javax.swing.JFrame {
     private void jbtn_beendenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_beendenActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        if(jfrm_einstellungen != null){
-            jfrm_einstellungen.dispose();
-        }
+        jfrm_einstellungen.dispose();
     }//GEN-LAST:event_jbtn_beendenActionPerformed
 
     public static void main(String args[]) {
@@ -121,13 +109,8 @@ public class Menue extends javax.swing.JFrame {
     
     private void jbtn_neuesSpielActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_neuesSpielActionPerformed
         // TODO add your handling code here:
-        jfrm_einstellungen = new Einstellungen(this);
         jfrm_einstellungen.setVisible(true);
         this.setVisible(false);
-        //JFrame jfrm_spielfeld = new Spielfeld(this, jfrm_einstellungen);
-        //jfrm_spielfeld.dispose();
-        //jfrm_spielfeld.setVisible(true);
-        //this.setVisible(false);
         
     }//GEN-LAST:event_jbtn_neuesSpielActionPerformed
 

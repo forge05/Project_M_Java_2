@@ -13,9 +13,9 @@ import javax.swing.JButton;
  */
 public class Feld extends JButton{
     
-    int entfernung_zum_ziel;
-    content inhalt;
     Feld[] nachbarn;
+    content inhalt;
+    int entfernungZumZiel;
     
 //    public Feld(){
 //    }
@@ -25,6 +25,11 @@ public class Feld extends JButton{
 //        inhalt = c;
 //    }
 
+    public void setAttributes(Feld.content inhalt, int distanz){
+        this.inhalt = inhalt;
+        this.entfernungZumZiel = distanz;
+    }
+    
     public void setNachbar(Feld... felder) {
         nachbarn = felder;
     }   
@@ -38,9 +43,6 @@ public class Feld extends JButton{
         }
     }
     
-    public void setAttributes(Feld.content inhalt, int distanz){
-        this.inhalt = inhalt;
-        this.entfernung_zum_ziel = distanz;
-    }
+
 }
 
