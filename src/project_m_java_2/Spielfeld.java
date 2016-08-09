@@ -206,6 +206,7 @@ public class Spielfeld extends javax.swing.JFrame {
                 aktuellesFeld.setForeground(getColorFromContent(aktuellesFeld.inhalt));
             } else if (aktuellesFeld.inhalt == Feld.content.GOAL) {
                 aktuellesFeld.setText(Feld.content.GOAL.toString());
+                aktuellesFeld.setForeground(getColorFromContent(aktuellesFeld.inhalt));
             }
         }
     }
@@ -243,10 +244,8 @@ public class Spielfeld extends javax.swing.JFrame {
             if (c.getClass() == Feld.class) {
                 Feld feld = (Feld) c;
                 feld.setBackground(getColorFromContent(feld.inhalt));
-                if (feld.inhalt != Feld.content.GOAL) {
-                    feld.setText("");
-                    feld.setForeground(Color.BLACK);
-                }
+                feld.setText("");
+                feld.setForeground(Color.BLACK);
             }
         }
     }
@@ -262,7 +261,7 @@ public class Spielfeld extends javax.swing.JFrame {
             sf.schonGeruecktWorden = true;
         } else {
             propDer.inhalt = Feld.content.BLACK;
-            propDer.setBackground(Color.BLACK);
+            propDer.setBackground(getColorFromContent(propDer.inhalt));
         }
 
         switch (ursprungscontent) {                       //eigene Figuren können nicht geschlagen werden
@@ -302,7 +301,7 @@ public class Spielfeld extends javax.swing.JFrame {
 
     private void blockieren(Feld wirdBlock) {
         wirdBlock.inhalt = Feld.content.BLOCK;
-        wirdBlock.setBackground(Color.WHITE);
+        wirdBlock.setBackground(getColorFromContent(wirdBlock.inhalt));
         blockZuSetzen = false;
     }
 
@@ -2170,8 +2169,8 @@ public class Spielfeld extends javax.swing.JFrame {
         //jlbl_wurfzahl.setText("" + wurfzahl);            //geht auch
         //jlbl_wurfzahl.setText(wurfzahl.toString());       //geht nicht
         schonGewuerfelt = true;
-        jbtn_aussetzen.setEnabled(true);
         jbtn_wuerfeln.setEnabled(false);
+        jbtn_aussetzen.setEnabled(true);
         jlbl_anleitungen.setText("Spieler " + yourTurn.playerName + 
                 ": Bitte rücken Sie. Eigene Figur anklicken, um Rückoptionen anzeigen zu lassen.");
     }//GEN-LAST:event_jbtn_wuerfelnActionPerformed
@@ -2215,138 +2214,138 @@ public class Spielfeld extends javax.swing.JFrame {
     
     private void setNeighbors() {
         //weise nachbarn zu
-        jbtn_0_ziel.setNachbar(jbtn_1);
-        jbtn_1.setNachbar(jbtn_0_ziel, jbtn_2_1, jbtn_2_2);
-        jbtn_2_1.setNachbar(jbtn_1, jbtn_3_1);
-        jbtn_2_2.setNachbar(jbtn_1, jbtn_3_2);
-        jbtn_3_1.setNachbar(jbtn_2_1, jbtn_4_1);
-        jbtn_3_2.setNachbar(jbtn_2_2, jbtn_4_2);
-        jbtn_4_1.setNachbar(jbtn_3_1, jbtn_5_1);
-        jbtn_4_2.setNachbar(jbtn_3_2, jbtn_5_2);
-        jbtn_5_1.setNachbar(jbtn_4_1, jbtn_6_1);
-        jbtn_5_2.setNachbar(jbtn_4_2, jbtn_6_2);
-        jbtn_6_1.setNachbar(jbtn_5_1, jbtn_7_1);
-        jbtn_6_2.setNachbar(jbtn_5_2, jbtn_7_2);
-        jbtn_7_1.setNachbar(jbtn_6_1, jbtn_8_1);
-        jbtn_7_2.setNachbar(jbtn_6_2, jbtn_8_2);
-        jbtn_8_1.setNachbar(jbtn_7_1, jbtn_9_1);
-        jbtn_8_2.setNachbar(jbtn_7_2, jbtn_9_2);
-        jbtn_9_1.setNachbar(jbtn_8_1, jbtn_10_1);
-        jbtn_9_2.setNachbar(jbtn_8_2, jbtn_10_2);
-        jbtn_10_1.setNachbar(jbtn_9_1, jbtn_11_1);
-        jbtn_10_2.setNachbar(jbtn_9_2, jbtn_11_2);
-        jbtn_11_1.setNachbar(jbtn_10_1, jbtn_12_1);
-        jbtn_11_2.setNachbar(jbtn_10_2, jbtn_12_2);
-        jbtn_12_1.setNachbar(jbtn_11_1, jbtn_13_1);
-        jbtn_12_2.setNachbar(jbtn_11_2, jbtn_13_2);
-        jbtn_13_1.setNachbar(jbtn_12_1, jbtn_14_1);
-        jbtn_13_2.setNachbar(jbtn_12_2, jbtn_14_2);
-        jbtn_14_1.setNachbar(jbtn_13_1, jbtn_15_1);
-        jbtn_14_2.setNachbar(jbtn_13_2, jbtn_15_2);
-        jbtn_15_1.setNachbar(jbtn_14_1, jbtn_16_1);
-        jbtn_15_2.setNachbar(jbtn_14_2, jbtn_16_2);
-        jbtn_16_1.setNachbar(jbtn_15_1, jbtn_17_1);
-        jbtn_16_2.setNachbar(jbtn_15_2, jbtn_17_2);
-        jbtn_17_1.setNachbar(jbtn_16_1, jbtn_18_1);
-        jbtn_17_2.setNachbar(jbtn_16_2, jbtn_18_2);
-        jbtn_18_1.setNachbar(jbtn_17_1, jbtn_19);
-        jbtn_18_2.setNachbar(jbtn_17_2, jbtn_19);
-        jbtn_19.setNachbar(jbtn_18_1, jbtn_18_2, jbtn_20);
-        jbtn_20.setNachbar(jbtn_19, jbtn_21);
-        jbtn_21.setNachbar(jbtn_20, jbtn_22_1, jbtn_22_2);
-        jbtn_22_1.setNachbar(jbtn_21, jbtn_23_1);
-        jbtn_22_2.setNachbar(jbtn_21, jbtn_23_2);
-        jbtn_23_1.setNachbar(jbtn_22_1, jbtn_24_1);
-        jbtn_23_2.setNachbar(jbtn_22_2, jbtn_24_2);
-        jbtn_24_1.setNachbar(jbtn_23_1, jbtn_25_1);
-        jbtn_24_2.setNachbar(jbtn_23_2, jbtn_25_2);
-        jbtn_25_1.setNachbar(jbtn_24_1, jbtn_26_1, jbtn_26_2);
-        jbtn_25_2.setNachbar(jbtn_24_2, jbtn_26_3, jbtn_26_4);
-        jbtn_26_1.setNachbar(jbtn_25_1, jbtn_27_1);
-        jbtn_26_2.setNachbar(jbtn_25_1, jbtn_27_2);
-        jbtn_26_3.setNachbar(jbtn_25_2, jbtn_27_2);
-        jbtn_26_4.setNachbar(jbtn_25_2, jbtn_27_3);
-        jbtn_27_1.setNachbar(jbtn_26_1, jbtn_28_1);
-        jbtn_27_2.setNachbar(jbtn_26_2, jbtn_26_3);
-        jbtn_27_3.setNachbar(jbtn_26_4, jbtn_28_2);
-        jbtn_28_1.setNachbar(jbtn_27_1, jbtn_29_1);
-        jbtn_28_2.setNachbar(jbtn_27_3, jbtn_29_2);
-        jbtn_29_1.setNachbar(jbtn_28_1, jbtn_30_1, jbtn_30_2);
-        jbtn_29_2.setNachbar(jbtn_28_2, jbtn_30_3, jbtn_30_4);
-        jbtn_30_1.setNachbar(jbtn_29_1, jbtn_31_1);
-        jbtn_30_2.setNachbar(jbtn_29_1, jbtn_31_2);
-        jbtn_30_3.setNachbar(jbtn_29_2, jbtn_31_3);
-        jbtn_30_4.setNachbar(jbtn_29_2, jbtn_31_4);
-        jbtn_31_1.setNachbar(jbtn_30_1, jbtn_32_1);
-        jbtn_31_2.setNachbar(jbtn_30_2, jbtn_32_2, jbtn_32_3);
-        jbtn_31_3.setNachbar(jbtn_30_3, jbtn_32_4, jbtn_32_5);
-        jbtn_31_4.setNachbar(jbtn_30_4, jbtn_32_6);
-        jbtn_32_1.setNachbar(jbtn_31_1, jbtn_33_1);
-        jbtn_32_2.setNachbar(jbtn_31_2, jbtn_33_2);
-        jbtn_32_3.setNachbar(jbtn_31_2, jbtn_33_3);
-        jbtn_32_4.setNachbar(jbtn_31_3, jbtn_33_3);
-        jbtn_32_5.setNachbar(jbtn_31_3, jbtn_33_4);
-        jbtn_32_6.setNachbar(jbtn_31_4, jbtn_33_5);
-        jbtn_33_1.setNachbar(jbtn_32_1, jbtn_34_1, jbtn_34_2);
-        jbtn_33_2.setNachbar(jbtn_32_2, jbtn_34_3, jbtn_34_4);
-        jbtn_33_3.setNachbar(jbtn_32_3, jbtn_32_4);
-        jbtn_33_4.setNachbar(jbtn_32_5, jbtn_34_5, jbtn_34_6);
-        jbtn_33_5.setNachbar(jbtn_32_6, jbtn_34_7, jbtn_34_8);
-        jbtn_34_1.setNachbar(jbtn_33_1, jbtn_35_1);
-        jbtn_34_2.setNachbar(jbtn_33_1, jbtn_35_2);
-        jbtn_34_3.setNachbar(jbtn_33_2, jbtn_35_2);
-        jbtn_34_4.setNachbar(jbtn_33_2, jbtn_35_3);
-        jbtn_34_5.setNachbar(jbtn_33_4, jbtn_35_3);
-        jbtn_34_6.setNachbar(jbtn_33_4, jbtn_35_4);
-        jbtn_34_7.setNachbar(jbtn_33_5, jbtn_35_4);
-        jbtn_34_8.setNachbar(jbtn_33_5, jbtn_35_5);
-        jbtn_35_1.setNachbar(jbtn_34_1, jbtn_36_1);
-        jbtn_35_2.setNachbar(jbtn_34_2, jbtn_34_3, jbtn_36_2);
-        jbtn_35_3.setNachbar(jbtn_34_4, jbtn_34_5, jbtn_36_3);
-        jbtn_35_4.setNachbar(jbtn_34_6, jbtn_34_7, jbtn_36_4);
-        jbtn_35_5.setNachbar(jbtn_34_8, jbtn_36_5);
-        jbtn_36_1.setNachbar(jbtn_35_1, jbtn_37_1);
-        jbtn_36_2.setNachbar(jbtn_35_2, jbtn_37_2);
-        jbtn_36_3.setNachbar(jbtn_35_3, jbtn_37_3);
-        jbtn_36_4.setNachbar(jbtn_35_4, jbtn_37_4);
-        jbtn_36_5.setNachbar(jbtn_35_5, jbtn_37_5);
-        jbtn_37_1.setNachbar(jbtn_36_1, jbtn_38_1);
-        jbtn_37_2.setNachbar(jbtn_36_2, jbtn_38_2, jbtn_38_3);
-        jbtn_37_3.setNachbar(jbtn_36_3, jbtn_38_4, jbtn_38_5);
-        jbtn_37_4.setNachbar(jbtn_36_4, jbtn_38_6, jbtn_38_7);
-        jbtn_37_5.setNachbar(jbtn_36_5, jbtn_38_8);
-        jbtn_38_1.setNachbar(jbtn_37_1, jbtn_39_1);
-        jbtn_38_2.setNachbar(jbtn_37_2, jbtn_39_1);
-        jbtn_38_3.setNachbar(jbtn_37_2, jbtn_39_2);
-        jbtn_38_4.setNachbar(jbtn_37_3, jbtn_39_2);
-        jbtn_38_5.setNachbar(jbtn_37_3, jbtn_39_3);
-        jbtn_38_6.setNachbar(jbtn_37_4, jbtn_39_3);
-        jbtn_38_7.setNachbar(jbtn_37_4, jbtn_39_4);
-        jbtn_38_8.setNachbar(jbtn_37_5, jbtn_39_4);
-        jbtn_39_1.setNachbar(jbtn_38_1, jbtn_38_2); //, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);                     // Nachbarschaft in die Startfelder wird bewusst weggelassen
-        jbtn_39_2.setNachbar(jbtn_38_3, jbtn_38_4); //, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);           // weil man nicht zurück in die startfelder rücken darf
-        jbtn_39_3.setNachbar(jbtn_38_5, jbtn_38_6); //, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);      // Außerdem wird damit in rücken verhindert, dass die Rekursion
-        jbtn_39_4.setNachbar(jbtn_38_7, jbtn_38_8); //, jbtn_40_blue_1, jbtn_40_blue_2, jbtn_40_blue_3, jbtn_40_blue_4, jbtn_40_blue_5);                // zurück in die Startfelder geht
-        jbtn_red_1.setNachbar(jbtn_39_1);
-        jbtn_red_2.setNachbar(jbtn_39_1);
-        jbtn_red_3.setNachbar(jbtn_39_1);
-        jbtn_red_4.setNachbar(jbtn_39_1);
-        jbtn_red_5.setNachbar(jbtn_39_1);
-        jbtn_green_1.setNachbar(jbtn_39_2);
-        jbtn_green_2.setNachbar(jbtn_39_2);
-        jbtn_green_3.setNachbar(jbtn_39_2);
-        jbtn_green_4.setNachbar(jbtn_39_2);
-        jbtn_green_5.setNachbar(jbtn_39_2);
-        jbtn_yellow_1.setNachbar(jbtn_39_3);
-        jbtn_yellow_2.setNachbar(jbtn_39_3);
-        jbtn_yellow_3.setNachbar(jbtn_39_3);
-        jbtn_yellow_4.setNachbar(jbtn_39_3);
-        jbtn_yellow_5.setNachbar(jbtn_39_3);
-        jbtn_blue_1.setNachbar(jbtn_39_4);
-        jbtn_blue_2.setNachbar(jbtn_39_4);
-        jbtn_blue_3.setNachbar(jbtn_39_4);
-        jbtn_blue_4.setNachbar(jbtn_39_4);
-        jbtn_blue_5.setNachbar(jbtn_39_4);
+        jbtn_0_ziel.setNeighbors(jbtn_1);
+        jbtn_1.setNeighbors(jbtn_0_ziel, jbtn_2_1, jbtn_2_2);
+        jbtn_2_1.setNeighbors(jbtn_1, jbtn_3_1);
+        jbtn_2_2.setNeighbors(jbtn_1, jbtn_3_2);
+        jbtn_3_1.setNeighbors(jbtn_2_1, jbtn_4_1);
+        jbtn_3_2.setNeighbors(jbtn_2_2, jbtn_4_2);
+        jbtn_4_1.setNeighbors(jbtn_3_1, jbtn_5_1);
+        jbtn_4_2.setNeighbors(jbtn_3_2, jbtn_5_2);
+        jbtn_5_1.setNeighbors(jbtn_4_1, jbtn_6_1);
+        jbtn_5_2.setNeighbors(jbtn_4_2, jbtn_6_2);
+        jbtn_6_1.setNeighbors(jbtn_5_1, jbtn_7_1);
+        jbtn_6_2.setNeighbors(jbtn_5_2, jbtn_7_2);
+        jbtn_7_1.setNeighbors(jbtn_6_1, jbtn_8_1);
+        jbtn_7_2.setNeighbors(jbtn_6_2, jbtn_8_2);
+        jbtn_8_1.setNeighbors(jbtn_7_1, jbtn_9_1);
+        jbtn_8_2.setNeighbors(jbtn_7_2, jbtn_9_2);
+        jbtn_9_1.setNeighbors(jbtn_8_1, jbtn_10_1);
+        jbtn_9_2.setNeighbors(jbtn_8_2, jbtn_10_2);
+        jbtn_10_1.setNeighbors(jbtn_9_1, jbtn_11_1);
+        jbtn_10_2.setNeighbors(jbtn_9_2, jbtn_11_2);
+        jbtn_11_1.setNeighbors(jbtn_10_1, jbtn_12_1);
+        jbtn_11_2.setNeighbors(jbtn_10_2, jbtn_12_2);
+        jbtn_12_1.setNeighbors(jbtn_11_1, jbtn_13_1);
+        jbtn_12_2.setNeighbors(jbtn_11_2, jbtn_13_2);
+        jbtn_13_1.setNeighbors(jbtn_12_1, jbtn_14_1);
+        jbtn_13_2.setNeighbors(jbtn_12_2, jbtn_14_2);
+        jbtn_14_1.setNeighbors(jbtn_13_1, jbtn_15_1);
+        jbtn_14_2.setNeighbors(jbtn_13_2, jbtn_15_2);
+        jbtn_15_1.setNeighbors(jbtn_14_1, jbtn_16_1);
+        jbtn_15_2.setNeighbors(jbtn_14_2, jbtn_16_2);
+        jbtn_16_1.setNeighbors(jbtn_15_1, jbtn_17_1);
+        jbtn_16_2.setNeighbors(jbtn_15_2, jbtn_17_2);
+        jbtn_17_1.setNeighbors(jbtn_16_1, jbtn_18_1);
+        jbtn_17_2.setNeighbors(jbtn_16_2, jbtn_18_2);
+        jbtn_18_1.setNeighbors(jbtn_17_1, jbtn_19);
+        jbtn_18_2.setNeighbors(jbtn_17_2, jbtn_19);
+        jbtn_19.setNeighbors(jbtn_18_1, jbtn_18_2, jbtn_20);
+        jbtn_20.setNeighbors(jbtn_19, jbtn_21);
+        jbtn_21.setNeighbors(jbtn_20, jbtn_22_1, jbtn_22_2);
+        jbtn_22_1.setNeighbors(jbtn_21, jbtn_23_1);
+        jbtn_22_2.setNeighbors(jbtn_21, jbtn_23_2);
+        jbtn_23_1.setNeighbors(jbtn_22_1, jbtn_24_1);
+        jbtn_23_2.setNeighbors(jbtn_22_2, jbtn_24_2);
+        jbtn_24_1.setNeighbors(jbtn_23_1, jbtn_25_1);
+        jbtn_24_2.setNeighbors(jbtn_23_2, jbtn_25_2);
+        jbtn_25_1.setNeighbors(jbtn_24_1, jbtn_26_1, jbtn_26_2);
+        jbtn_25_2.setNeighbors(jbtn_24_2, jbtn_26_3, jbtn_26_4);
+        jbtn_26_1.setNeighbors(jbtn_25_1, jbtn_27_1);
+        jbtn_26_2.setNeighbors(jbtn_25_1, jbtn_27_2);
+        jbtn_26_3.setNeighbors(jbtn_25_2, jbtn_27_2);
+        jbtn_26_4.setNeighbors(jbtn_25_2, jbtn_27_3);
+        jbtn_27_1.setNeighbors(jbtn_26_1, jbtn_28_1);
+        jbtn_27_2.setNeighbors(jbtn_26_2, jbtn_26_3);
+        jbtn_27_3.setNeighbors(jbtn_26_4, jbtn_28_2);
+        jbtn_28_1.setNeighbors(jbtn_27_1, jbtn_29_1);
+        jbtn_28_2.setNeighbors(jbtn_27_3, jbtn_29_2);
+        jbtn_29_1.setNeighbors(jbtn_28_1, jbtn_30_1, jbtn_30_2);
+        jbtn_29_2.setNeighbors(jbtn_28_2, jbtn_30_3, jbtn_30_4);
+        jbtn_30_1.setNeighbors(jbtn_29_1, jbtn_31_1);
+        jbtn_30_2.setNeighbors(jbtn_29_1, jbtn_31_2);
+        jbtn_30_3.setNeighbors(jbtn_29_2, jbtn_31_3);
+        jbtn_30_4.setNeighbors(jbtn_29_2, jbtn_31_4);
+        jbtn_31_1.setNeighbors(jbtn_30_1, jbtn_32_1);
+        jbtn_31_2.setNeighbors(jbtn_30_2, jbtn_32_2, jbtn_32_3);
+        jbtn_31_3.setNeighbors(jbtn_30_3, jbtn_32_4, jbtn_32_5);
+        jbtn_31_4.setNeighbors(jbtn_30_4, jbtn_32_6);
+        jbtn_32_1.setNeighbors(jbtn_31_1, jbtn_33_1);
+        jbtn_32_2.setNeighbors(jbtn_31_2, jbtn_33_2);
+        jbtn_32_3.setNeighbors(jbtn_31_2, jbtn_33_3);
+        jbtn_32_4.setNeighbors(jbtn_31_3, jbtn_33_3);
+        jbtn_32_5.setNeighbors(jbtn_31_3, jbtn_33_4);
+        jbtn_32_6.setNeighbors(jbtn_31_4, jbtn_33_5);
+        jbtn_33_1.setNeighbors(jbtn_32_1, jbtn_34_1, jbtn_34_2);
+        jbtn_33_2.setNeighbors(jbtn_32_2, jbtn_34_3, jbtn_34_4);
+        jbtn_33_3.setNeighbors(jbtn_32_3, jbtn_32_4);
+        jbtn_33_4.setNeighbors(jbtn_32_5, jbtn_34_5, jbtn_34_6);
+        jbtn_33_5.setNeighbors(jbtn_32_6, jbtn_34_7, jbtn_34_8);
+        jbtn_34_1.setNeighbors(jbtn_33_1, jbtn_35_1);
+        jbtn_34_2.setNeighbors(jbtn_33_1, jbtn_35_2);
+        jbtn_34_3.setNeighbors(jbtn_33_2, jbtn_35_2);
+        jbtn_34_4.setNeighbors(jbtn_33_2, jbtn_35_3);
+        jbtn_34_5.setNeighbors(jbtn_33_4, jbtn_35_3);
+        jbtn_34_6.setNeighbors(jbtn_33_4, jbtn_35_4);
+        jbtn_34_7.setNeighbors(jbtn_33_5, jbtn_35_4);
+        jbtn_34_8.setNeighbors(jbtn_33_5, jbtn_35_5);
+        jbtn_35_1.setNeighbors(jbtn_34_1, jbtn_36_1);
+        jbtn_35_2.setNeighbors(jbtn_34_2, jbtn_34_3, jbtn_36_2);
+        jbtn_35_3.setNeighbors(jbtn_34_4, jbtn_34_5, jbtn_36_3);
+        jbtn_35_4.setNeighbors(jbtn_34_6, jbtn_34_7, jbtn_36_4);
+        jbtn_35_5.setNeighbors(jbtn_34_8, jbtn_36_5);
+        jbtn_36_1.setNeighbors(jbtn_35_1, jbtn_37_1);
+        jbtn_36_2.setNeighbors(jbtn_35_2, jbtn_37_2);
+        jbtn_36_3.setNeighbors(jbtn_35_3, jbtn_37_3);
+        jbtn_36_4.setNeighbors(jbtn_35_4, jbtn_37_4);
+        jbtn_36_5.setNeighbors(jbtn_35_5, jbtn_37_5);
+        jbtn_37_1.setNeighbors(jbtn_36_1, jbtn_38_1);
+        jbtn_37_2.setNeighbors(jbtn_36_2, jbtn_38_2, jbtn_38_3);
+        jbtn_37_3.setNeighbors(jbtn_36_3, jbtn_38_4, jbtn_38_5);
+        jbtn_37_4.setNeighbors(jbtn_36_4, jbtn_38_6, jbtn_38_7);
+        jbtn_37_5.setNeighbors(jbtn_36_5, jbtn_38_8);
+        jbtn_38_1.setNeighbors(jbtn_37_1, jbtn_39_1);
+        jbtn_38_2.setNeighbors(jbtn_37_2, jbtn_39_1);
+        jbtn_38_3.setNeighbors(jbtn_37_2, jbtn_39_2);
+        jbtn_38_4.setNeighbors(jbtn_37_3, jbtn_39_2);
+        jbtn_38_5.setNeighbors(jbtn_37_3, jbtn_39_3);
+        jbtn_38_6.setNeighbors(jbtn_37_4, jbtn_39_3);
+        jbtn_38_7.setNeighbors(jbtn_37_4, jbtn_39_4);
+        jbtn_38_8.setNeighbors(jbtn_37_5, jbtn_39_4);
+        jbtn_39_1.setNeighbors(jbtn_38_1, jbtn_38_2); //, jbtn_40_red_1, jbtn_40_red_2, jbtn_40_red_3, jbtn_40_red_4, jbtn_40_red_5);                     // Nachbarschaft in die Startfelder wird bewusst weggelassen
+        jbtn_39_2.setNeighbors(jbtn_38_3, jbtn_38_4); //, jbtn_40_green_1, jbtn_40_green_2, jbtn_40_green_3, jbtn_40_green_4, jbtn_40_green_5);           // weil man nicht zurück in die startfelder rücken darf
+        jbtn_39_3.setNeighbors(jbtn_38_5, jbtn_38_6); //, jbtn_40_yellow_1, jbtn_40_yellow_2, jbtn_40_yellow_3, jbtn_40_yellow_4, jbtn_40_yellow_5);      // Außerdem wird damit in rücken verhindert, dass die Rekursion
+        jbtn_39_4.setNeighbors(jbtn_38_7, jbtn_38_8); //, jbtn_40_blue_1, jbtn_40_blue_2, jbtn_40_blue_3, jbtn_40_blue_4, jbtn_40_blue_5);                // zurück in die Startfelder geht
+        jbtn_red_1.setNeighbors(jbtn_39_1);
+        jbtn_red_2.setNeighbors(jbtn_39_1);
+        jbtn_red_3.setNeighbors(jbtn_39_1);
+        jbtn_red_4.setNeighbors(jbtn_39_1);
+        jbtn_red_5.setNeighbors(jbtn_39_1);
+        jbtn_green_1.setNeighbors(jbtn_39_2);
+        jbtn_green_2.setNeighbors(jbtn_39_2);
+        jbtn_green_3.setNeighbors(jbtn_39_2);
+        jbtn_green_4.setNeighbors(jbtn_39_2);
+        jbtn_green_5.setNeighbors(jbtn_39_2);
+        jbtn_yellow_1.setNeighbors(jbtn_39_3);
+        jbtn_yellow_2.setNeighbors(jbtn_39_3);
+        jbtn_yellow_3.setNeighbors(jbtn_39_3);
+        jbtn_yellow_4.setNeighbors(jbtn_39_3);
+        jbtn_yellow_5.setNeighbors(jbtn_39_3);
+        jbtn_blue_1.setNeighbors(jbtn_39_4);
+        jbtn_blue_2.setNeighbors(jbtn_39_4);
+        jbtn_blue_3.setNeighbors(jbtn_39_4);
+        jbtn_blue_4.setNeighbors(jbtn_39_4);
+        jbtn_blue_5.setNeighbors(jbtn_39_4);
     }
 
     private void setAttributes() {

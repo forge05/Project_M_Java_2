@@ -30,7 +30,7 @@ public class Feld extends JButton{
         this.entfernungZumZiel = distanz;
     }
     
-    public void setNachbar(Feld... felder) {
+    public void setNeighbors(Feld... felder) {
         nachbarn = felder;
     }   
     public enum content{
